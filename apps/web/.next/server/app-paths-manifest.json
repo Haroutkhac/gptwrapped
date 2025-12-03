@@ -1,0 +1,8 @@
+{
+  "/page": "app/page.js",
+  "/explore/activity/page": "app/explore/activity/page.js",
+  "/explore/conversations/page": "app/explore/conversations/page.js",
+  "/import/page": "app/import/page.js",
+  "/explore/topics/page": "app/explore/topics/page.js",
+  "/explore/modes/page": "app/explore/modes/page.js"
+}

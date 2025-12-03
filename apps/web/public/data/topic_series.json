@@ -1,0 +1,1127 @@
+[
+  {
+    "week": "2024-12",
+    "breakdown": [
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 1.0
+      }
+    ]
+  },
+  {
+    "week": "2024-24",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.6483205180089032
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.3516794819910967
+      }
+    ]
+  },
+  {
+    "week": "2024-25",
+    "breakdown": [
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 1.0
+      }
+    ]
+  },
+  {
+    "week": "2025-08",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.7876480541455161
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.21235194585448391
+      }
+    ]
+  },
+  {
+    "week": "2025-14",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.4596285695267257
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.2902882247220928
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.22019569992677893
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.029887505824402583
+      }
+    ]
+  },
+  {
+    "week": "2025-15",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.7580785393421243
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.13001738878423416
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.05546297638023475
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.029560933198087235
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.01699029126213592
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.006701927256919287
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.0031879437762643097
+      }
+    ]
+  },
+  {
+    "week": "2025-16",
+    "breakdown": [
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.360330705044783
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.2944193523692873
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.1351909974737809
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.13143994488249253
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.06652376942509378
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.012095230804562505
+      }
+    ]
+  },
+  {
+    "week": "2025-17",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.488778679491033
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.2865444344254083
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.1266907123534716
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.039625288047289854
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.03421500851618074
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.013425508466085563
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.01072036870053101
+      }
+    ]
+  },
+  {
+    "week": "2025-18",
+    "breakdown": [
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.377807930046736
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.25584200211065883
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.13583597165686717
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.11706618423036333
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.07696366651590532
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.03648424543946932
+      }
+    ]
+  },
+  {
+    "week": "2025-19",
+    "breakdown": [
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.8273809523809523
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.17261904761904762
+      }
+    ]
+  },
+  {
+    "week": "2025-20",
+    "breakdown": [
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 1.0
+      }
+    ]
+  },
+  {
+    "week": "2025-21",
+    "breakdown": [
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.6222707423580786
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.27074235807860264
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.10698689956331878
+      }
+    ]
+  },
+  {
+    "week": "2025-22",
+    "breakdown": [
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.6321381142098274
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.2903939796370075
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.06271211450494318
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.014755791648221927
+      }
+    ]
+  },
+  {
+    "week": "2025-23",
+    "breakdown": [
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.5052295177222546
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.16865194654270774
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.14453805926786753
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.12144102266124346
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.060139453805926786
+      }
+    ]
+  },
+  {
+    "week": "2025-24",
+    "breakdown": [
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.42232868757259
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.295876887340302
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.10365853658536585
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.08260743321718932
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.062282229965156796
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.019744483159117306
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.013501742160278746
+      }
+    ]
+  },
+  {
+    "week": "2025-25",
+    "breakdown": [
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.5298013245033113
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.15518763796909493
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.14282560706401767
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.1251655629139073
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.037969094922737305
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.009050772626931568
+      }
+    ]
+  },
+  {
+    "week": "2025-26",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.47601717737826627
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.20671082320401776
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.11813086833102845
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.11572894679379868
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.03246233350316617
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.023728073367785138
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.019724870805735498
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.007496906616202052
+      }
+    ]
+  },
+  {
+    "week": "2025-27",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.4665070301467428
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.18794130287959723
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.13587523791981335
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.1116227666236876
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.046233192116411866
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.03653220359796156
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.015288266715785596
+      }
+    ]
+  },
+  {
+    "week": "2025-28",
+    "breakdown": [
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.48490983567964596
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.3278873769951504
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.08978765478600688
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.03950280145016244
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.03455906586939121
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.02194076933942276
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.0014124958802203495
+      }
+    ]
+  },
+  {
+    "week": "2025-29",
+    "breakdown": [
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.4519109617807644
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.23385132297354053
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.18639227215455692
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.09160016799664007
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.012095758084838303
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.010163796724065519
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.007727845443091138
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.00625787484250315
+      }
+    ]
+  },
+  {
+    "week": "2025-30",
+    "breakdown": [
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.5622554176309699
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.333494634967389
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.05567010309278351
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.02779297285924679
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.011887229118451505
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.008899642331159268
+      }
+    ]
+  },
+  {
+    "week": "2025-31",
+    "breakdown": [
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.3732427843803056
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.3329032258064516
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.11517826825127335
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.06261460101867572
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.03633276740237691
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.03558573853989813
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.022886247877758913
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.021256366723259763
+      }
+    ]
+  },
+  {
+    "week": "2025-32",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.7122617339618774
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.16622258659561384
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.05159868825579012
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.044220127075220335
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.020470383275261322
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.005226480836236934
+      }
+    ]
+  },
+  {
+    "week": "2025-33",
+    "breakdown": [
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.4711713447663091
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.27216477187573596
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.13094396985462564
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.06718479028839361
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.04369794677457341
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.008157235532147216
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.006679940908215043
+      }
+    ]
+  },
+  {
+    "week": "2025-34",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.7544437904649794
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.1266235040219737
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.0672160094173043
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.025544437904649792
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.017304296645085343
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.008867961546007455
+      }
+    ]
+  },
+  {
+    "week": "2025-35",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.513000438569012
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.1989223732848819
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.1400288202493578
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.0961092663366957
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.03163962157759539
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.013595639370966731
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.006703840611490508
+      }
+    ]
+  },
+  {
+    "week": "2025-36",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.6202102407595795
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.37978975924042047
+      }
+    ]
+  },
+  {
+    "week": "2025-37",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.6183586063201759
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.2006597985877995
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.0696839912026855
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.06036578307674499
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.03478411853223753
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.016147702280356523
+      }
+    ]
+  },
+  {
+    "week": "2025-38",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.9571438948209486
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.02397036391370669
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.017665431829737777
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.000813539623737924
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.000406769811868962
+      }
+    ]
+  },
+  {
+    "week": "2025-39",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.7113941018766756
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.12064343163538874
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.12050938337801609
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.03873994638069705
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.00871313672922252
+      }
+    ]
+  },
+  {
+    "week": "2025-40",
+    "breakdown": [
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.7200870882241576
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.172235895494131
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.06100908746686861
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.025842483907610753
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.012637258614161302
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.008188186293070807
+      }
+    ]
+  },
+  {
+    "week": "2025-41",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.8818828488627382
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.05611662422060244
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.04496355493106174
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.017036971985597612
+      }
+    ]
+  },
+  {
+    "week": "2025-42",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.4133458918997247
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.35701347630778146
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.15798435009418924
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.06662077959715983
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.002463411099840603
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.001738878423416896
+      },
+      {
+        "topic_id": "cluster-7",
+        "label": "000 & Frac",
+        "share": 0.0005796261411389654
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.00025358643674829734
+      }
+    ]
+  },
+  {
+    "week": "2025-43",
+    "breakdown": [
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.4909164780312264
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.33005397875674736
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.12870741192175983
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.022781357014336295
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.021939752742469093
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.005601021533461025
+      }
+    ]
+  },
+  {
+    "week": "2025-44",
+    "breakdown": [
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.373713923917058
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.346594206721891
+      },
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.13343534005170685
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.09265024006753549
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.028122197013665383
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.025484092228143303
+      }
+    ]
+  },
+  {
+    "week": "2025-45",
+    "breakdown": [
+      {
+        "topic_id": "cluster-3",
+        "label": "Data & Api",
+        "share": 0.4373700873013335
+      },
+      {
+        "topic_id": "cluster-2",
+        "label": "Cite & Like",
+        "share": 0.3735409804611301
+      },
+      {
+        "topic_id": "cluster-1",
+        "label": "Self & Return",
+        "share": 0.12167823222794283
+      },
+      {
+        "topic_id": "cluster-5",
+        "label": "Color & White",
+        "share": 0.03546416807905088
+      },
+      {
+        "topic_id": "cluster-0",
+        "label": "Speaker & Like",
+        "share": 0.018579514566211507
+      },
+      {
+        "topic_id": "cluster-6",
+        "label": "More & Like",
+        "share": 0.007227143359662307
+      },
+      {
+        "topic_id": "cluster-4",
+        "label": "Not & Now",
+        "share": 0.0061398740046688625
+      }
+    ]
+  }
+]

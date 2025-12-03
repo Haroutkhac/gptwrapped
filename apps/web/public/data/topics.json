@@ -1,0 +1,122 @@
+[
+  {
+    "topic_id": "cluster-3",
+    "label": "Data & Api",
+    "size": 298015,
+    "color": "#facc15",
+    "sentiment": -0.0,
+    "messages": 1583,
+    "keywords": [
+      "data",
+      "api",
+      "const",
+      "like",
+      "how"
+    ]
+  },
+  {
+    "topic_id": "cluster-2",
+    "label": "Cite & Like",
+    "size": 92503,
+    "color": "#22d3ee",
+    "sentiment": 0.001,
+    "messages": 746,
+    "keywords": [
+      "cite",
+      "like",
+      "use",
+      "new",
+      "free"
+    ]
+  },
+  {
+    "topic_id": "cluster-1",
+    "label": "Self & Return",
+    "size": 91960,
+    "color": "#f472b6",
+    "sentiment": 0.0,
+    "messages": 873,
+    "keywords": [
+      "self",
+      "return",
+      "not",
+      "path",
+      "list"
+    ]
+  },
+  {
+    "topic_id": "cluster-0",
+    "label": "Speaker & Like",
+    "size": 77709,
+    "color": "#8b5cf6",
+    "sentiment": 0.002,
+    "messages": 1083,
+    "keywords": [
+      "speaker",
+      "like",
+      "then",
+      "it's",
+      "yeah"
+    ]
+  },
+  {
+    "topic_id": "cluster-5",
+    "label": "Color & White",
+    "size": 27956,
+    "color": "#f97316",
+    "sentiment": 0.0,
+    "messages": 264,
+    "keywords": [
+      "color",
+      "white",
+      "light",
+      "background",
+      "text"
+    ]
+  },
+  {
+    "topic_id": "cluster-6",
+    "label": "More & Like",
+    "size": 24927,
+    "color": "#2dd4bf",
+    "sentiment": 0.001,
+    "messages": 368,
+    "keywords": [
+      "more",
+      "like",
+      "protein",
+      "want",
+      "not"
+    ]
+  },
+  {
+    "topic_id": "cluster-7",
+    "label": "000 & Frac",
+    "size": 14750,
+    "color": "#c084fc",
+    "sentiment": -0.001,
+    "messages": 113,
+    "keywords": [
+      "000",
+      "frac",
+      "time",
+      "rate",
+      "lambda"
+    ]
+  },
+  {
+    "topic_id": "cluster-4",
+    "label": "Not & Now",
+    "size": 4228,
+    "color": "#34d399",
+    "sentiment": 0.0,
+    "messages": 177,
+    "keywords": [
+      "not",
+      "now",
+      "anything",
+      "end",
+      "turn"
+    ]
+  }
+]

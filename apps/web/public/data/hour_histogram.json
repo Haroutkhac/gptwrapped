@@ -1,0 +1,98 @@
+[
+  {
+    "hour": 0,
+    "messages": 1134
+  },
+  {
+    "hour": 1,
+    "messages": 1061
+  },
+  {
+    "hour": 2,
+    "messages": 1489
+  },
+  {
+    "hour": 3,
+    "messages": 2188
+  },
+  {
+    "hour": 4,
+    "messages": 378
+  },
+  {
+    "hour": 5,
+    "messages": 240
+  },
+  {
+    "hour": 6,
+    "messages": 59
+  },
+  {
+    "hour": 7,
+    "messages": 20
+  },
+  {
+    "hour": 8,
+    "messages": 17
+  },
+  {
+    "hour": 9,
+    "messages": 10
+  },
+  {
+    "hour": 10,
+    "messages": 32
+  },
+  {
+    "hour": 11,
+    "messages": 95
+  },
+  {
+    "hour": 12,
+    "messages": 52
+  },
+  {
+    "hour": 13,
+    "messages": 314
+  },
+  {
+    "hour": 14,
+    "messages": 432
+  },
+  {
+    "hour": 15,
+    "messages": 643
+  },
+  {
+    "hour": 16,
+    "messages": 640
+  },
+  {
+    "hour": 17,
+    "messages": 855
+  },
+  {
+    "hour": 18,
+    "messages": 1234
+  },
+  {
+    "hour": 19,
+    "messages": 1046
+  },
+  {
+    "hour": 20,
+    "messages": 1272
+  },
+  {
+    "hour": 21,
+    "messages": 990
+  },
+  {
+    "hour": 22,
+    "messages": 1103
+  },
+  {
+    "hour": 23,
+    "messages": 824
+  }
+]

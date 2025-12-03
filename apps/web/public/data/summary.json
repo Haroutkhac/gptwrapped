@@ -1,0 +1,66 @@
+{
+  "period": {
+    "start": "2024-03-21",
+    "end": "2025-11-08"
+  },
+  "totals": {
+    "messages": 16128,
+    "words": 958282,
+    "user_words": 193869,
+    "assistant_words": 742988
+  },
+  "most_active_hour": 3,
+  "longest_streak_days": 57,
+  "top_topics": [
+    {
+      "label": "Data & Api",
+      "pct": 0.31098883209744105
+    },
+    {
+      "label": "Cite & Like",
+      "pct": 0.09653004021780645
+    },
+    {
+      "label": "Self & Return",
+      "pct": 0.0959634011700105
+    }
+  ],
+  "modes": [
+    {
+      "mode": "chat",
+      "pct": 0.841827876984127
+    },
+    {
+      "mode": "ask",
+      "pct": 0.06442212301587301
+    },
+    {
+      "mode": "code",
+      "pct": 0.06398809523809523
+    },
+    {
+      "mode": "plan",
+      "pct": 0.01494295634920635
+    },
+    {
+      "mode": "debug",
+      "pct": 0.012710813492063492
+    },
+    {
+      "mode": "reflect",
+      "pct": 0.0021081349206349205
+    }
+  ],
+  "fun": {
+    "novel_pages": 3833,
+    "avg_words_per_day": 4965,
+    "top_keyword": {
+      "term": "speaker",
+      "count": 3314
+    },
+    "active_days": 193,
+    "period_days": 598,
+    "user_words_pct": 0.20230892367799874,
+    "assistant_words_pct": 0.7753333569867743
+  }
+}

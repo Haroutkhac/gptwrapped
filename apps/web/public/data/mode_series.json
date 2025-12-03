@@ -1,0 +1,922 @@
+[
+  {
+    "week": "2024-12",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 3
+      }
+    ]
+  },
+  {
+    "week": "2024-24",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 14
+      },
+      {
+        "mode": "ask",
+        "messages": 5
+      },
+      {
+        "mode": "code",
+        "messages": 1
+      },
+      {
+        "mode": "debug",
+        "messages": 4
+      },
+      {
+        "mode": "plan",
+        "messages": 1
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2024-25",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 3
+      },
+      {
+        "mode": "ask",
+        "messages": 2
+      }
+    ]
+  },
+  {
+    "week": "2025-08",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 39
+      },
+      {
+        "mode": "plan",
+        "messages": 2
+      },
+      {
+        "mode": "ask",
+        "messages": 5
+      },
+      {
+        "mode": "code",
+        "messages": 3
+      }
+    ]
+  },
+  {
+    "week": "2025-14",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 99
+      },
+      {
+        "mode": "ask",
+        "messages": 35
+      },
+      {
+        "mode": "code",
+        "messages": 11
+      },
+      {
+        "mode": "debug",
+        "messages": 8
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      },
+      {
+        "mode": "plan",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-15",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 242
+      },
+      {
+        "mode": "ask",
+        "messages": 60
+      },
+      {
+        "mode": "plan",
+        "messages": 11
+      },
+      {
+        "mode": "code",
+        "messages": 19
+      },
+      {
+        "mode": "debug",
+        "messages": 32
+      },
+      {
+        "mode": "reflect",
+        "messages": 2
+      }
+    ]
+  },
+  {
+    "week": "2025-16",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 132
+      },
+      {
+        "mode": "ask",
+        "messages": 23
+      },
+      {
+        "mode": "plan",
+        "messages": 15
+      },
+      {
+        "mode": "code",
+        "messages": 8
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      },
+      {
+        "mode": "debug",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-17",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 277
+      },
+      {
+        "mode": "ask",
+        "messages": 54
+      },
+      {
+        "mode": "plan",
+        "messages": 22
+      },
+      {
+        "mode": "code",
+        "messages": 37
+      },
+      {
+        "mode": "debug",
+        "messages": 3
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-18",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 483
+      },
+      {
+        "mode": "ask",
+        "messages": 35
+      },
+      {
+        "mode": "plan",
+        "messages": 21
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      },
+      {
+        "mode": "code",
+        "messages": 7
+      }
+    ]
+  },
+  {
+    "week": "2025-19",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 11
+      },
+      {
+        "mode": "ask",
+        "messages": 2
+      }
+    ]
+  },
+  {
+    "week": "2025-20",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 9
+      },
+      {
+        "mode": "code",
+        "messages": 10
+      },
+      {
+        "mode": "ask",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-21",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 17
+      },
+      {
+        "mode": "ask",
+        "messages": 6
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-22",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 86
+      },
+      {
+        "mode": "plan",
+        "messages": 4
+      },
+      {
+        "mode": "code",
+        "messages": 30
+      },
+      {
+        "mode": "ask",
+        "messages": 15
+      },
+      {
+        "mode": "debug",
+        "messages": 2
+      }
+    ]
+  },
+  {
+    "week": "2025-23",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 72
+      },
+      {
+        "mode": "code",
+        "messages": 14
+      },
+      {
+        "mode": "ask",
+        "messages": 19
+      },
+      {
+        "mode": "debug",
+        "messages": 3
+      },
+      {
+        "mode": "plan",
+        "messages": 4
+      }
+    ]
+  },
+  {
+    "week": "2025-24",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 142
+      },
+      {
+        "mode": "code",
+        "messages": 24
+      },
+      {
+        "mode": "ask",
+        "messages": 28
+      },
+      {
+        "mode": "plan",
+        "messages": 4
+      },
+      {
+        "mode": "debug",
+        "messages": 6
+      }
+    ]
+  },
+  {
+    "week": "2025-25",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 95
+      },
+      {
+        "mode": "ask",
+        "messages": 15
+      },
+      {
+        "mode": "code",
+        "messages": 32
+      },
+      {
+        "mode": "plan",
+        "messages": 1
+      },
+      {
+        "mode": "debug",
+        "messages": 3
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-26",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 480
+      },
+      {
+        "mode": "ask",
+        "messages": 17
+      },
+      {
+        "mode": "code",
+        "messages": 38
+      },
+      {
+        "mode": "debug",
+        "messages": 2
+      },
+      {
+        "mode": "plan",
+        "messages": 4
+      }
+    ]
+  },
+  {
+    "week": "2025-27",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 469
+      },
+      {
+        "mode": "ask",
+        "messages": 47
+      },
+      {
+        "mode": "debug",
+        "messages": 1
+      },
+      {
+        "mode": "code",
+        "messages": 33
+      },
+      {
+        "mode": "plan",
+        "messages": 4
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-28",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 535
+      },
+      {
+        "mode": "ask",
+        "messages": 28
+      },
+      {
+        "mode": "plan",
+        "messages": 7
+      },
+      {
+        "mode": "code",
+        "messages": 34
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      },
+      {
+        "mode": "debug",
+        "messages": 3
+      }
+    ]
+  },
+  {
+    "week": "2025-29",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 960
+      },
+      {
+        "mode": "code",
+        "messages": 16
+      },
+      {
+        "mode": "ask",
+        "messages": 43
+      },
+      {
+        "mode": "reflect",
+        "messages": 2
+      },
+      {
+        "mode": "plan",
+        "messages": 7
+      },
+      {
+        "mode": "debug",
+        "messages": 3
+      }
+    ]
+  },
+  {
+    "week": "2025-30",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 676
+      },
+      {
+        "mode": "ask",
+        "messages": 34
+      },
+      {
+        "mode": "code",
+        "messages": 41
+      },
+      {
+        "mode": "plan",
+        "messages": 9
+      },
+      {
+        "mode": "debug",
+        "messages": 10
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-31",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 1283
+      },
+      {
+        "mode": "ask",
+        "messages": 46
+      },
+      {
+        "mode": "plan",
+        "messages": 14
+      },
+      {
+        "mode": "code",
+        "messages": 16
+      },
+      {
+        "mode": "debug",
+        "messages": 6
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-32",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 1412
+      },
+      {
+        "mode": "code",
+        "messages": 66
+      },
+      {
+        "mode": "plan",
+        "messages": 16
+      },
+      {
+        "mode": "ask",
+        "messages": 50
+      },
+      {
+        "mode": "debug",
+        "messages": 3
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-33",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 1210
+      },
+      {
+        "mode": "code",
+        "messages": 128
+      },
+      {
+        "mode": "ask",
+        "messages": 69
+      },
+      {
+        "mode": "debug",
+        "messages": 14
+      },
+      {
+        "mode": "plan",
+        "messages": 4
+      },
+      {
+        "mode": "reflect",
+        "messages": 2
+      }
+    ]
+  },
+  {
+    "week": "2025-34",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 314
+      },
+      {
+        "mode": "code",
+        "messages": 26
+      },
+      {
+        "mode": "ask",
+        "messages": 46
+      },
+      {
+        "mode": "plan",
+        "messages": 9
+      },
+      {
+        "mode": "debug",
+        "messages": 6
+      },
+      {
+        "mode": "reflect",
+        "messages": 3
+      }
+    ]
+  },
+  {
+    "week": "2025-35",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 451
+      },
+      {
+        "mode": "code",
+        "messages": 35
+      },
+      {
+        "mode": "ask",
+        "messages": 34
+      },
+      {
+        "mode": "debug",
+        "messages": 8
+      },
+      {
+        "mode": "plan",
+        "messages": 11
+      }
+    ]
+  },
+  {
+    "week": "2025-36",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 179
+      },
+      {
+        "mode": "ask",
+        "messages": 11
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      },
+      {
+        "mode": "code",
+        "messages": 6
+      },
+      {
+        "mode": "plan",
+        "messages": 2
+      }
+    ]
+  },
+  {
+    "week": "2025-37",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 239
+      },
+      {
+        "mode": "debug",
+        "messages": 5
+      },
+      {
+        "mode": "reflect",
+        "messages": 2
+      },
+      {
+        "mode": "ask",
+        "messages": 19
+      },
+      {
+        "mode": "plan",
+        "messages": 6
+      },
+      {
+        "mode": "code",
+        "messages": 20
+      }
+    ]
+  },
+  {
+    "week": "2025-38",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 718
+      },
+      {
+        "mode": "code",
+        "messages": 72
+      },
+      {
+        "mode": "plan",
+        "messages": 5
+      },
+      {
+        "mode": "ask",
+        "messages": 27
+      },
+      {
+        "mode": "debug",
+        "messages": 31
+      }
+    ]
+  },
+  {
+    "week": "2025-39",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 196
+      },
+      {
+        "mode": "code",
+        "messages": 36
+      },
+      {
+        "mode": "ask",
+        "messages": 41
+      },
+      {
+        "mode": "debug",
+        "messages": 23
+      },
+      {
+        "mode": "plan",
+        "messages": 4
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-40",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 358
+      },
+      {
+        "mode": "code",
+        "messages": 15
+      },
+      {
+        "mode": "debug",
+        "messages": 4
+      },
+      {
+        "mode": "ask",
+        "messages": 34
+      },
+      {
+        "mode": "plan",
+        "messages": 9
+      }
+    ]
+  },
+  {
+    "week": "2025-41",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 253
+      },
+      {
+        "mode": "code",
+        "messages": 25
+      },
+      {
+        "mode": "ask",
+        "messages": 21
+      },
+      {
+        "mode": "plan",
+        "messages": 7
+      },
+      {
+        "mode": "reflect",
+        "messages": 3
+      },
+      {
+        "mode": "debug",
+        "messages": 3
+      }
+    ]
+  },
+  {
+    "week": "2025-42",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 614
+      },
+      {
+        "mode": "ask",
+        "messages": 57
+      },
+      {
+        "mode": "plan",
+        "messages": 9
+      },
+      {
+        "mode": "code",
+        "messages": 62
+      },
+      {
+        "mode": "debug",
+        "messages": 4
+      }
+    ]
+  },
+  {
+    "week": "2025-43",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 607
+      },
+      {
+        "mode": "ask",
+        "messages": 40
+      },
+      {
+        "mode": "code",
+        "messages": 64
+      },
+      {
+        "mode": "plan",
+        "messages": 8
+      },
+      {
+        "mode": "reflect",
+        "messages": 2
+      },
+      {
+        "mode": "debug",
+        "messages": 5
+      }
+    ]
+  },
+  {
+    "week": "2025-44",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 397
+      },
+      {
+        "mode": "ask",
+        "messages": 23
+      },
+      {
+        "mode": "code",
+        "messages": 48
+      },
+      {
+        "mode": "plan",
+        "messages": 6
+      },
+      {
+        "mode": "debug",
+        "messages": 8
+      },
+      {
+        "mode": "reflect",
+        "messages": 1
+      }
+    ]
+  },
+  {
+    "week": "2025-45",
+    "breakdown": [
+      {
+        "mode": "chat",
+        "messages": 502
+      },
+      {
+        "mode": "code",
+        "messages": 55
+      },
+      {
+        "mode": "ask",
+        "messages": 47
+      },
+      {
+        "mode": "reflect",
+        "messages": 3
+      },
+      {
+        "mode": "debug",
+        "messages": 4
+      },
+      {
+        "mode": "plan",
+        "messages": 14
+      }
+    ]
+  }
+]

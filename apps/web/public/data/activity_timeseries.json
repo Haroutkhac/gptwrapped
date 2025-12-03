@@ -1,0 +1,1160 @@
+[
+  {
+    "date": "2024-03-21",
+    "messages": 3,
+    "words": 38,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2024-06-16",
+    "messages": 26,
+    "words": 7265,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2024-06-17",
+    "messages": 2,
+    "words": 282,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2024-06-22",
+    "messages": 3,
+    "words": 83,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-02-19",
+    "messages": 49,
+    "words": 3500,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-04-02",
+    "messages": 6,
+    "words": 280,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-04-04",
+    "messages": 25,
+    "words": 9257,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-04-05",
+    "messages": 26,
+    "words": 1648,
+    "sentiment": 0.006
+  },
+  {
+    "date": "2025-04-06",
+    "messages": 98,
+    "words": 12139,
+    "sentiment": 0.012
+  },
+  {
+    "date": "2025-04-07",
+    "messages": 86,
+    "words": 7955,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-04-08",
+    "messages": 108,
+    "words": 20489,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-04-09",
+    "messages": 86,
+    "words": 7387,
+    "sentiment": -0.007
+  },
+  {
+    "date": "2025-04-10",
+    "messages": 38,
+    "words": 3176,
+    "sentiment": -0.024
+  },
+  {
+    "date": "2025-04-11",
+    "messages": 11,
+    "words": 1281,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-04-13",
+    "messages": 37,
+    "words": 2061,
+    "sentiment": 0.004
+  },
+  {
+    "date": "2025-04-14",
+    "messages": 21,
+    "words": 873,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-04-15",
+    "messages": 16,
+    "words": 1363,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-04-17",
+    "messages": 20,
+    "words": 1436,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-04-19",
+    "messages": 66,
+    "words": 8894,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-04-20",
+    "messages": 57,
+    "words": 8126,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-04-21",
+    "messages": 71,
+    "words": 6701,
+    "sentiment": 0.004
+  },
+  {
+    "date": "2025-04-22",
+    "messages": 54,
+    "words": 5111,
+    "sentiment": -0.015
+  },
+  {
+    "date": "2025-04-23",
+    "messages": 85,
+    "words": 6670,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-04-24",
+    "messages": 32,
+    "words": 3354,
+    "sentiment": -0.003
+  },
+  {
+    "date": "2025-04-25",
+    "messages": 94,
+    "words": 6791,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-04-26",
+    "messages": 6,
+    "words": 327,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-04-27",
+    "messages": 52,
+    "words": 3055,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-04-28",
+    "messages": 404,
+    "words": 11542,
+    "sentiment": 0.021
+  },
+  {
+    "date": "2025-04-29",
+    "messages": 42,
+    "words": 1490,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-04-30",
+    "messages": 19,
+    "words": 1991,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-05-01",
+    "messages": 18,
+    "words": 1286,
+    "sentiment": 0.026
+  },
+  {
+    "date": "2025-05-02",
+    "messages": 23,
+    "words": 642,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-05-03",
+    "messages": 35,
+    "words": 3669,
+    "sentiment": 0.006
+  },
+  {
+    "date": "2025-05-04",
+    "messages": 6,
+    "words": 227,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-05-05",
+    "messages": 4,
+    "words": 469,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-05-06",
+    "messages": 9,
+    "words": 90,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-05-18",
+    "messages": 20,
+    "words": 1432,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-05-20",
+    "messages": 5,
+    "words": 300,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-05-22",
+    "messages": 4,
+    "words": 89,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-05-24",
+    "messages": 6,
+    "words": 209,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-05-25",
+    "messages": 9,
+    "words": 307,
+    "sentiment": 0.007
+  },
+  {
+    "date": "2025-05-26",
+    "messages": 71,
+    "words": 3821,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-05-27",
+    "messages": 6,
+    "words": 593,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-05-28",
+    "messages": 20,
+    "words": 1515,
+    "sentiment": -0.005
+  },
+  {
+    "date": "2025-05-31",
+    "messages": 4,
+    "words": 185,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-06-01",
+    "messages": 36,
+    "words": 5183,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-06-02",
+    "messages": 23,
+    "words": 4681,
+    "sentiment": -0.0
+  },
+  {
+    "date": "2025-06-04",
+    "messages": 10,
+    "words": 344,
+    "sentiment": 0.004
+  },
+  {
+    "date": "2025-06-05",
+    "messages": 16,
+    "words": 941,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-06-06",
+    "messages": 8,
+    "words": 1377,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-06-07",
+    "messages": 21,
+    "words": 1746,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-06-08",
+    "messages": 34,
+    "words": 1843,
+    "sentiment": -0.005
+  },
+  {
+    "date": "2025-06-09",
+    "messages": 24,
+    "words": 1980,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-06-11",
+    "messages": 64,
+    "words": 4111,
+    "sentiment": -0.004
+  },
+  {
+    "date": "2025-06-12",
+    "messages": 18,
+    "words": 842,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-06-13",
+    "messages": 13,
+    "words": 676,
+    "sentiment": -0.003
+  },
+  {
+    "date": "2025-06-14",
+    "messages": 58,
+    "words": 1282,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-06-15",
+    "messages": 27,
+    "words": 1420,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-06-16",
+    "messages": 18,
+    "words": 759,
+    "sentiment": 0.011
+  },
+  {
+    "date": "2025-06-17",
+    "messages": 31,
+    "words": 1141,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-06-18",
+    "messages": 23,
+    "words": 719,
+    "sentiment": -0.017
+  },
+  {
+    "date": "2025-06-19",
+    "messages": 16,
+    "words": 1570,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-06-20",
+    "messages": 30,
+    "words": 945,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-06-21",
+    "messages": 4,
+    "words": 251,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-06-22",
+    "messages": 25,
+    "words": 891,
+    "sentiment": 0.007
+  },
+  {
+    "date": "2025-06-23",
+    "messages": 17,
+    "words": 2291,
+    "sentiment": -0.003
+  },
+  {
+    "date": "2025-06-24",
+    "messages": 4,
+    "words": 79,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-06-25",
+    "messages": 86,
+    "words": 2772,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-06-26",
+    "messages": 61,
+    "words": 3804,
+    "sentiment": 0.006
+  },
+  {
+    "date": "2025-06-27",
+    "messages": 127,
+    "words": 5522,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-06-28",
+    "messages": 228,
+    "words": 5390,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-06-29",
+    "messages": 18,
+    "words": 1880,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-06-30",
+    "messages": 159,
+    "words": 5298,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-07-01",
+    "messages": 137,
+    "words": 6978,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-07-02",
+    "messages": 29,
+    "words": 3827,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-07-03",
+    "messages": 161,
+    "words": 5671,
+    "sentiment": 0.014
+  },
+  {
+    "date": "2025-07-04",
+    "messages": 20,
+    "words": 1070,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-07-05",
+    "messages": 49,
+    "words": 2247,
+    "sentiment": 0.01
+  },
+  {
+    "date": "2025-07-07",
+    "messages": 41,
+    "words": 3442,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-07-08",
+    "messages": 24,
+    "words": 2460,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-07-09",
+    "messages": 126,
+    "words": 12287,
+    "sentiment": 0.004
+  },
+  {
+    "date": "2025-07-10",
+    "messages": 17,
+    "words": 1007,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-07-11",
+    "messages": 71,
+    "words": 3283,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-07-12",
+    "messages": 93,
+    "words": 4636,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-07-13",
+    "messages": 236,
+    "words": 4343,
+    "sentiment": -0.0
+  },
+  {
+    "date": "2025-07-14",
+    "messages": 79,
+    "words": 2899,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-07-15",
+    "messages": 105,
+    "words": 1495,
+    "sentiment": 0.006
+  },
+  {
+    "date": "2025-07-16",
+    "messages": 142,
+    "words": 1931,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-07-17",
+    "messages": 241,
+    "words": 9023,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-07-18",
+    "messages": 5,
+    "words": 14772,
+    "sentiment": -0.0
+  },
+  {
+    "date": "2025-07-19",
+    "messages": 286,
+    "words": 7867,
+    "sentiment": 0.006
+  },
+  {
+    "date": "2025-07-20",
+    "messages": 173,
+    "words": 1581,
+    "sentiment": 0.04
+  },
+  {
+    "date": "2025-07-21",
+    "messages": 131,
+    "words": 3327,
+    "sentiment": 0.019
+  },
+  {
+    "date": "2025-07-22",
+    "messages": 18,
+    "words": 995,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-07-23",
+    "messages": 23,
+    "words": 13726,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-07-24",
+    "messages": 174,
+    "words": 9961,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-07-25",
+    "messages": 34,
+    "words": 16443,
+    "sentiment": -0.0
+  },
+  {
+    "date": "2025-07-26",
+    "messages": 209,
+    "words": 24571,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-07-27",
+    "messages": 182,
+    "words": 6409,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-07-28",
+    "messages": 348,
+    "words": 2533,
+    "sentiment": 0.006
+  },
+  {
+    "date": "2025-07-29",
+    "messages": 59,
+    "words": 1559,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-07-30",
+    "messages": 686,
+    "words": 11944,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-07-31",
+    "messages": 49,
+    "words": 1278,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-01",
+    "messages": 120,
+    "words": 1814,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-08-02",
+    "messages": 10,
+    "words": 880,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-03",
+    "messages": 94,
+    "words": 3506,
+    "sentiment": 0.021
+  },
+  {
+    "date": "2025-08-04",
+    "messages": 40,
+    "words": 2450,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-05",
+    "messages": 3,
+    "words": 103,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-06",
+    "messages": 42,
+    "words": 2636,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-08-07",
+    "messages": 108,
+    "words": 6030,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-08",
+    "messages": 1104,
+    "words": 16531,
+    "sentiment": -0.006
+  },
+  {
+    "date": "2025-08-09",
+    "messages": 59,
+    "words": 12061,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-08-10",
+    "messages": 192,
+    "words": 17010,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-08-11",
+    "messages": 66,
+    "words": 3575,
+    "sentiment": 0.008
+  },
+  {
+    "date": "2025-08-12",
+    "messages": 51,
+    "words": 1320,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-13",
+    "messages": 421,
+    "words": 5083,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-08-14",
+    "messages": 367,
+    "words": 19079,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-08-15",
+    "messages": 52,
+    "words": 10445,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-16",
+    "messages": 177,
+    "words": 8783,
+    "sentiment": 0.004
+  },
+  {
+    "date": "2025-08-17",
+    "messages": 293,
+    "words": 12283,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-08-18",
+    "messages": 167,
+    "words": 17064,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-08-19",
+    "messages": 29,
+    "words": 2659,
+    "sentiment": 0.008
+  },
+  {
+    "date": "2025-08-20",
+    "messages": 91,
+    "words": 3221,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-08-21",
+    "messages": 61,
+    "words": 11312,
+    "sentiment": 0.012
+  },
+  {
+    "date": "2025-08-22",
+    "messages": 3,
+    "words": 102,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-23",
+    "messages": 43,
+    "words": 2294,
+    "sentiment": 0.01
+  },
+  {
+    "date": "2025-08-24",
+    "messages": 10,
+    "words": 453,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-08-25",
+    "messages": 27,
+    "words": 4160,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-08-26",
+    "messages": 129,
+    "words": 2390,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-08-27",
+    "messages": 147,
+    "words": 15712,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-08-28",
+    "messages": 30,
+    "words": 1880,
+    "sentiment": -0.003
+  },
+  {
+    "date": "2025-08-29",
+    "messages": 46,
+    "words": 2377,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-08-30",
+    "messages": 128,
+    "words": 6969,
+    "sentiment": -0.005
+  },
+  {
+    "date": "2025-08-31",
+    "messages": 32,
+    "words": 1957,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-09-01",
+    "messages": 54,
+    "words": 6466,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-09-03",
+    "messages": 10,
+    "words": 548,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-09-06",
+    "messages": 56,
+    "words": 931,
+    "sentiment": -0.003
+  },
+  {
+    "date": "2025-09-07",
+    "messages": 79,
+    "words": 1603,
+    "sentiment": 0.004
+  },
+  {
+    "date": "2025-09-08",
+    "messages": 114,
+    "words": 3826,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-09-09",
+    "messages": 108,
+    "words": 11375,
+    "sentiment": -0.003
+  },
+  {
+    "date": "2025-09-10",
+    "messages": 11,
+    "words": 409,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-09-13",
+    "messages": 47,
+    "words": 4944,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-09-14",
+    "messages": 11,
+    "words": 4113,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-09-15",
+    "messages": 246,
+    "words": 12812,
+    "sentiment": -0.004
+  },
+  {
+    "date": "2025-09-16",
+    "messages": 201,
+    "words": 15358,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-09-17",
+    "messages": 150,
+    "words": 15880,
+    "sentiment": -0.006
+  },
+  {
+    "date": "2025-09-18",
+    "messages": 28,
+    "words": 5209,
+    "sentiment": -0.004
+  },
+  {
+    "date": "2025-09-19",
+    "messages": 113,
+    "words": 14676,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-09-20",
+    "messages": 115,
+    "words": 4013,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-09-22",
+    "messages": 136,
+    "words": 14438,
+    "sentiment": 0.011
+  },
+  {
+    "date": "2025-09-23",
+    "messages": 84,
+    "words": 21982,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-09-24",
+    "messages": 38,
+    "words": 3474,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-09-25",
+    "messages": 6,
+    "words": 192,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-09-26",
+    "messages": 15,
+    "words": 751,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-09-27",
+    "messages": 16,
+    "words": 249,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-09-28",
+    "messages": 6,
+    "words": 459,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-09-29",
+    "messages": 70,
+    "words": 5702,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-09-30",
+    "messages": 60,
+    "words": 3970,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-10-01",
+    "messages": 94,
+    "words": 6439,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-10-02",
+    "messages": 53,
+    "words": 2297,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-10-03",
+    "messages": 114,
+    "words": 4541,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-10-04",
+    "messages": 29,
+    "words": 442,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-10-06",
+    "messages": 82,
+    "words": 8107,
+    "sentiment": 0.014
+  },
+  {
+    "date": "2025-10-07",
+    "messages": 121,
+    "words": 9639,
+    "sentiment": 0.005
+  },
+  {
+    "date": "2025-10-08",
+    "messages": 57,
+    "words": 3677,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-10-11",
+    "messages": 35,
+    "words": 1385,
+    "sentiment": 0.003
+  },
+  {
+    "date": "2025-10-12",
+    "messages": 17,
+    "words": 916,
+    "sentiment": 0.006
+  },
+  {
+    "date": "2025-10-13",
+    "messages": 28,
+    "words": 2440,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-10-14",
+    "messages": 32,
+    "words": 6205,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-10-15",
+    "messages": 274,
+    "words": 10451,
+    "sentiment": 0.004
+  },
+  {
+    "date": "2025-10-16",
+    "messages": 9,
+    "words": 119,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-10-17",
+    "messages": 202,
+    "words": 13517,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-10-18",
+    "messages": 130,
+    "words": 9445,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-10-19",
+    "messages": 71,
+    "words": 2238,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-10-20",
+    "messages": 193,
+    "words": 22982,
+    "sentiment": -0.004
+  },
+  {
+    "date": "2025-10-21",
+    "messages": 8,
+    "words": 146,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-10-22",
+    "messages": 11,
+    "words": 288,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-10-23",
+    "messages": 122,
+    "words": 8318,
+    "sentiment": 0.006
+  },
+  {
+    "date": "2025-10-24",
+    "messages": 275,
+    "words": 11005,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-10-25",
+    "messages": 14,
+    "words": 772,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-10-26",
+    "messages": 103,
+    "words": 1873,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-10-27",
+    "messages": 13,
+    "words": 1068,
+    "sentiment": -0.001
+  },
+  {
+    "date": "2025-10-28",
+    "messages": 89,
+    "words": 8455,
+    "sentiment": -0.002
+  },
+  {
+    "date": "2025-10-29",
+    "messages": 197,
+    "words": 2654,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-10-31",
+    "messages": 94,
+    "words": 12921,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-11-01",
+    "messages": 26,
+    "words": 3477,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-11-02",
+    "messages": 64,
+    "words": 3828,
+    "sentiment": 0.0
+  },
+  {
+    "date": "2025-11-03",
+    "messages": 72,
+    "words": 5866,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-11-04",
+    "messages": 169,
+    "words": 9510,
+    "sentiment": 0.001
+  },
+  {
+    "date": "2025-11-05",
+    "messages": 91,
+    "words": 7269,
+    "sentiment": 0.012
+  },
+  {
+    "date": "2025-11-06",
+    "messages": 88,
+    "words": 8106,
+    "sentiment": -0.003
+  },
+  {
+    "date": "2025-11-07",
+    "messages": 82,
+    "words": 6985,
+    "sentiment": 0.002
+  },
+  {
+    "date": "2025-11-08",
+    "messages": 123,
+    "words": 8680,
+    "sentiment": -0.001
+  }
+]

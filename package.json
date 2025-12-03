@@ -1,0 +1,20 @@
+{
+  "name": "chatgpt-wrapped",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w web",
+    "build": "npm run build -w web",
+    "lint": "npm run lint -w web",
+    "test": "npm run test -w web && node scripts/check-no-external-net.mjs",
+    "check:safety": "node scripts/check-no-external-net.mjs",
+    "etl": "python3 ./etl_chatgpt_wrapped.py"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.555.0",
+    "tailwind-merge": "^3.4.0"
+  }
+}
