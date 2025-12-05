@@ -9,6 +9,7 @@ import { emptyWrappedData } from '@/lib/emptyDataset';
 interface DataContextValue {
   data: WrappedData;
   hasImportedData: boolean;
+  hydrated: boolean;
 }
 
 const DataContext = createContext<DataContextValue | null>(null);
@@ -19,26 +20,32 @@ interface Props {
 }
 
 export function DataProvider({ initialData, children }: Props) {
-  const [baseData, setBaseData] = useState<WrappedData>(initialData ?? emptyWrappedData);
-  const [hasImportedData, setHasImportedData] = useState<boolean>(Boolean(initialData));
+  const [state, setState] = useState(() => {
+    if (initialData) {
+      return { baseData: initialData, hasImportedData: true };
+    }
+    return { baseData: emptyWrappedData, hasImportedData: false };
+  });
   const [topicOverrides, setTopicOverrides] = useState<Topic[] | null>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  const { baseData, hasImportedData } = state;
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
     const storedData = loadStoredWrappedData();
     if (storedData) {
-      setBaseData(storedData);
-      setHasImportedData(true);
+      setState({ baseData: storedData, hasImportedData: true });
+    } else if (!initialData) {
+      setState({ baseData: emptyWrappedData, hasImportedData: false });
     }
     setTopicOverrides(loadTopicOverrides());
+    setHydrated(true);
 
     const unsubscribe = subscribeToStoredData((payload) => {
       if (payload) {
-        setBaseData(payload);
-        setHasImportedData(true);
+        setState({ baseData: payload, hasImportedData: true });
       } else {
-        setBaseData(emptyWrappedData);
-        setHasImportedData(false);
+        setState({ baseData: emptyWrappedData, hasImportedData: false });
       }
     });
 
@@ -56,7 +63,7 @@ export function DataProvider({ initialData, children }: Props) {
 
   const mergedData = useMemo(() => applyTopicOverrides(baseData, topicOverrides), [baseData, topicOverrides]);
 
-  return <DataContext.Provider value={{ data: mergedData, hasImportedData }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ data: mergedData, hasImportedData, hydrated }}>{children}</DataContext.Provider>;
 }
 
 export function useWrappedData() {

@@ -1,5 +1,6 @@
 import type { Topic, WrappedData } from '@/types/data';
 import type { TopicAnalysisResult } from './embeddings';
+import type { NormalizedConversation } from './analytics';
 
 const STORAGE_KEY = 'chatgpt-wrapped-data-v1';
 export const TOPIC_OVERRIDES_KEY = 'chatgpt-wrapped-topic-overrides';
@@ -8,6 +9,96 @@ export const RAW_CONVERSATIONS_KEY = 'chatgpt-wrapped-raw-conversations';
 export const STORAGE_EVENT = 'chatgpt-wrapped:data-updated';
 export const TOPIC_OVERRIDES_EVENT = 'chatgpt-wrapped:topics-updated';
 export const EMBEDDING_ANALYSIS_EVENT = 'chatgpt-wrapped:embedding-analysis-updated';
+
+const IDB_NAME = 'chatgpt-wrapped-db';
+const IDB_VERSION = 1;
+const IDB_STORE = 'conversations';
+
+function openDB(): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(IDB_NAME, IDB_VERSION);
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => resolve(request.result);
+    request.onupgradeneeded = () => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains(IDB_STORE)) {
+        db.createObjectStore(IDB_STORE);
+      }
+    };
+  });
+}
+
+export async function saveRawConversations(conversations: NormalizedConversation[]): Promise<void> {
+  if (typeof window === 'undefined') return;
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    const store = tx.objectStore(IDB_STORE);
+    store.put(conversations, RAW_CONVERSATIONS_KEY);
+    tx.oncomplete = () => {
+      db.close();
+      resolve();
+    };
+    tx.onerror = () => {
+      db.close();
+      reject(tx.error);
+    };
+  });
+}
+
+export async function loadRawConversations(): Promise<NormalizedConversation[] | null> {
+  if (typeof window === 'undefined') return null;
+  try {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const store = tx.objectStore(IDB_STORE);
+      const request = store.get(RAW_CONVERSATIONS_KEY);
+      request.onsuccess = () => {
+        db.close();
+        resolve(request.result || null);
+      };
+      request.onerror = () => {
+        db.close();
+        reject(request.error);
+      };
+    });
+  } catch {
+    return null;
+  }
+}
+
+export async function clearRawConversations(): Promise<void> {
+  if (typeof window === 'undefined') return;
+  try {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      const store = tx.objectStore(IDB_STORE);
+      store.delete(RAW_CONVERSATIONS_KEY);
+      tx.oncomplete = () => {
+        db.close();
+        resolve();
+      };
+      tx.onerror = () => {
+        db.close();
+        reject(tx.error);
+      };
+    });
+  } catch {
+    return;
+  }
+}
+
+export async function hasRawConversations(): Promise<boolean> {
+  if (typeof window === 'undefined') return false;
+  try {
+    const conversations = await loadRawConversations();
+    return conversations !== null && conversations.length > 0;
+  } catch {
+    return false;
+  }
+}
 
 export function saveWrappedData(data: WrappedData) {
   if (typeof window === 'undefined') return;

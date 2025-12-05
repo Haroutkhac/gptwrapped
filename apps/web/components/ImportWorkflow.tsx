@@ -5,7 +5,7 @@ import FileDropZone from '@/components/FileDropZone';
 import KpiStat from '@/components/KpiStat';
 import { ingestExportFiles } from '@/lib/importer';
 import { filterConversationsByDate, runLocalAnalysis, type NormalizedConversation } from '@/lib/analytics';
-import { clearTopicOverrides, clearEmbeddingAnalysis, saveWrappedData, RAW_CONVERSATIONS_KEY } from '@/lib/storage';
+import { clearTopicOverrides, clearEmbeddingAnalysis, saveWrappedData, saveRawConversations, clearRawConversations } from '@/lib/storage';
 import type { WrappedData } from '@/types/data';
 
 export default function ImportWorkflow() {
@@ -27,8 +27,9 @@ export default function ImportWorkflow() {
       const result = runLocalAnalysis(normalized);
       clearTopicOverrides();
       clearEmbeddingAnalysis();
+      await clearRawConversations();
       saveWrappedData(result);
-      localStorage.setItem(RAW_CONVERSATIONS_KEY, JSON.stringify(normalized));
+      await saveRawConversations(normalized);
       setPreview(result);
       setConversations(normalized);
       const period = { start: result.summary.period.start, end: result.summary.period.end };
