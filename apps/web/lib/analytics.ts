@@ -5,10 +5,10 @@ import type {
   Summary,
   Topic,
   TopicSeriesPoint,
-  WrappedData
-} from '@/types/data';
+  WrappedData,
+} from "@/types/data";
 
-export type Role = 'user' | 'assistant' | 'system' | 'tool' | 'unknown';
+export type Role = "user" | "assistant" | "system" | "tool" | "unknown";
 
 export interface NormalizedMessage {
   id: string;
@@ -64,41 +64,50 @@ const sentimentLexicon: Record<string, number> = {
   stuck: -0.3,
   terrible: -0.8,
   sad: -0.5,
-  worry: -0.2
+  worry: -0.2,
 };
 
-const TOPIC_COLOR_POOL = ['#8b5cf6', '#f472b6', '#22d3ee', '#facc15', '#34d399', '#f97316', '#2dd4bf', '#c084fc', '#fb7185'];
-
+const TOPIC_COLOR_POOL = [
+  "#8b5cf6",
+  "#f472b6",
+  "#22d3ee",
+  "#facc15",
+  "#34d399",
+  "#f97316",
+  "#2dd4bf",
+  "#c084fc",
+  "#fb7185",
+];
 
 const STOPWORDS = new Set([
-  'the',
-  'and',
-  'for',
-  'with',
-  'that',
-  'this',
-  'from',
-  'you',
-  'your',
-  'are',
-  'have',
-  'was',
-  'were',
-  'about',
-  'into',
-  'what',
-  'when',
-  'which',
-  'their',
-  'will',
-  'just',
-  'but',
-  'can',
-  'all',
-  'any',
-  'per',
-  'tot',
-  'one'
+  "the",
+  "and",
+  "for",
+  "with",
+  "that",
+  "this",
+  "from",
+  "you",
+  "your",
+  "are",
+  "have",
+  "was",
+  "were",
+  "about",
+  "into",
+  "what",
+  "when",
+  "which",
+  "their",
+  "will",
+  "just",
+  "but",
+  "can",
+  "all",
+  "any",
+  "per",
+  "tot",
+  "one",
 ]);
 
 const TOKEN_PATTERN = /[a-z0-9']+/gi;
@@ -125,31 +134,35 @@ function tokenize(text: string) {
 }
 
 function getIsoWeekKey(date: Date) {
-  const target = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const target = new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+  );
   const dayNum = target.getUTCDay() || 7;
   target.setUTCDate(target.getUTCDate() + 4 - dayNum);
   const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
-  const weekNo = Math.ceil(((target.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
-  return `${target.getUTCFullYear()}-${String(weekNo).padStart(2, '0')}`;
+  const weekNo = Math.ceil(
+    ((target.getTime() - yearStart.getTime()) / 86400000 + 1) / 7
+  );
+  return `${target.getUTCFullYear()}-${String(weekNo).padStart(2, "0")}`;
 }
 
 export function extractText(raw?: RawMessage): string {
-  if (!raw?.content?.parts) return '';
+  if (!raw?.content?.parts) return "";
   return raw.content.parts
     .map((part) => {
-      if (typeof part === 'string') return part;
-      return part?.text ?? '';
+      if (typeof part === "string") return part;
+      return part?.text ?? "";
     })
-    .join('\n')
+    .join("\n")
     .trim();
 }
 
 function sanitizeRole(rawRole?: string): Role {
-  if (!rawRole) return 'unknown';
-  if (['user', 'assistant', 'system', 'tool'].includes(rawRole)) {
+  if (!rawRole) return "unknown";
+  if (["user", "assistant", "system", "tool"].includes(rawRole)) {
     return rawRole as Role;
   }
-  return 'unknown';
+  return "unknown";
 }
 
 function ensureSeconds(timestamp?: number | null) {
@@ -165,15 +178,17 @@ export function normalizeExport(payload: unknown): NormalizedConversation[] {
   return payload.map<NormalizedConversation>((conversation, idx) => {
     const safeConversation = conversation as RawConversation;
     const id = safeConversation.id || `conversation-${idx}`;
-    const title = safeConversation.title || 'Untitled conversation';
+    const title = safeConversation.title || "Untitled conversation";
     const createdAt = ensureSeconds(safeConversation.create_time);
-    const updatedAt = safeConversation.update_time ? ensureSeconds(safeConversation.update_time) : null;
+    const updatedAt = safeConversation.update_time
+      ? ensureSeconds(safeConversation.update_time)
+      : null;
 
     const rawMessages = safeConversation.messages
       ? safeConversation.messages
-      : Object.values(safeConversation.mapping || {})
+      : (Object.values(safeConversation.mapping || {})
           .map((entry) => entry.message)
-          .filter(Boolean) as RawMessage[];
+          .filter(Boolean) as RawMessage[]);
 
     const messages: NormalizedMessage[] = rawMessages
       .map((message, messageIndex) => {
@@ -185,12 +200,16 @@ export function normalizeExport(payload: unknown): NormalizedConversation[] {
           role: sanitizeRole(message?.author?.role),
           createdAt: created,
           text,
-          wordCount: text ? text.split(/\s+/).filter(Boolean).length : 0
+          wordCount: text ? text.split(/\s+/).filter(Boolean).length : 0,
         };
       })
       .filter((message) => {
         if (!message.text.trim()) return false;
-        return message.role === 'user' || message.role === 'assistant' || message.role === 'tool';
+        return (
+          message.role === "user" ||
+          message.role === "assistant" ||
+          message.role === "tool"
+        );
       });
 
     return {
@@ -198,7 +217,7 @@ export function normalizeExport(payload: unknown): NormalizedConversation[] {
       title,
       createdAt,
       updatedAt,
-      messages
+      messages,
     };
   });
 }
@@ -214,13 +233,30 @@ function scoreSentiment(text: string): number {
   return Math.max(-1, Math.min(1, score / tokens.length));
 }
 
-export function computeDaily(conversations: NormalizedConversation[]): ActivityPoint[] {
-  const daily = new Map<string, { messages: number; words: number; sentimentTotal: number; sentimentCount: number }>();
+export function computeDaily(
+  conversations: NormalizedConversation[]
+): ActivityPoint[] {
+  const daily = new Map<
+    string,
+    {
+      messages: number;
+      words: number;
+      sentimentTotal: number;
+      sentimentCount: number;
+    }
+  >();
 
   conversations.forEach((conversation) => {
     conversation.messages.forEach((message) => {
-      const date = new Date(message.createdAt * 1000).toISOString().slice(0, 10);
-      const bucket = daily.get(date) || { messages: 0, words: 0, sentimentTotal: 0, sentimentCount: 0 };
+      const date = new Date(message.createdAt * 1000)
+        .toISOString()
+        .slice(0, 10);
+      const bucket = daily.get(date) || {
+        messages: 0,
+        words: 0,
+        sentimentTotal: 0,
+        sentimentCount: 0,
+      };
       bucket.messages += 1;
       bucket.words += message.wordCount;
       const sentiment = scoreSentiment(message.text);
@@ -238,11 +274,15 @@ export function computeDaily(conversations: NormalizedConversation[]): ActivityP
       date,
       messages: stats.messages,
       words: stats.words,
-      sentiment: stats.sentimentCount ? stats.sentimentTotal / stats.sentimentCount : 0
+      sentiment: stats.sentimentCount
+        ? stats.sentimentTotal / stats.sentimentCount
+        : 0,
     }));
 }
 
-export function computeTopHour(conversations: NormalizedConversation[]): number {
+export function computeTopHour(
+  conversations: NormalizedConversation[]
+): number {
   const hours = new Map<number, number>();
   conversations.forEach((conversation) => {
     conversation.messages.forEach((message) => {
@@ -261,8 +301,13 @@ export function computeTopHour(conversations: NormalizedConversation[]): number 
   return topHour;
 }
 
-export function computeHourBuckets(conversations: NormalizedConversation[]): HourBucket[] {
-  const buckets = Array.from({ length: 24 }, (_, hour) => ({ hour, messages: 0 }));
+export function computeHourBuckets(
+  conversations: NormalizedConversation[]
+): HourBucket[] {
+  const buckets = Array.from({ length: 24 }, (_, hour) => ({
+    hour,
+    messages: 0,
+  }));
   conversations.forEach((conversation) => {
     conversation.messages.forEach((message) => {
       const hour = new Date(message.createdAt * 1000).getHours();
@@ -278,9 +323,9 @@ export function computeTotals(conversations: NormalizedConversation[]) {
       conversation.messages.forEach((message) => {
         acc.messages += 1;
         acc.words += message.wordCount;
-        if (message.role === 'user') {
+        if (message.role === "user") {
           acc.userWords += message.wordCount;
-        } else if (message.role === 'assistant') {
+        } else if (message.role === "assistant") {
           acc.assistantWords += message.wordCount;
         }
       });
@@ -315,7 +360,7 @@ export function computeModeBreakdown(conversations: NormalizedConversation[]) {
       total += 1;
     });
   });
-  return total > 0 ? [{ mode: 'chat', pct: 1.0 }] : [];
+  return total > 0 ? [{ mode: "chat", pct: 1.0 }] : [];
 }
 
 export function computeModeSeries(conversations: NormalizedConversation[]) {
@@ -331,11 +376,13 @@ export function computeModeSeries(conversations: NormalizedConversation[]) {
     .sort((a, b) => a[0].localeCompare(b[0]))
     .map(([week, messages]) => ({
       week,
-      breakdown: [{ mode: 'chat', messages }]
+      breakdown: [{ mode: "chat", messages }],
     }));
 }
 
-function buildTopicDocuments(conversations: NormalizedConversation[]): TopicDocument[] {
+function buildTopicDocuments(
+  conversations: NormalizedConversation[]
+): TopicDocument[] {
   return conversations
     .map((conversation) => {
       const tokens: string[] = [];
@@ -346,29 +393,43 @@ function buildTopicDocuments(conversations: NormalizedConversation[]): TopicDocu
       conversation.messages.forEach((message) => {
         const cleaned = message.text.trim();
         if (!cleaned) return;
-        const messageTokens = tokenize(cleaned).filter((token) => token.length > 2 && !STOPWORDS.has(token));
+        const messageTokens = tokenize(cleaned).filter(
+          (token) => token.length > 2 && !STOPWORDS.has(token)
+        );
         if (!messageTokens.length) return;
         tokens.push(...messageTokens);
         wordCount += messageTokens.length;
         messageCount += 1;
         sentimentTotal += scoreSentiment(cleaned);
-        firstTimestamp = firstTimestamp === null ? message.createdAt : Math.min(firstTimestamp, message.createdAt);
+        firstTimestamp =
+          firstTimestamp === null
+            ? message.createdAt
+            : Math.min(firstTimestamp, message.createdAt);
       });
       if (!tokens.length) return null;
-      const weekKey = getIsoWeekKey(new Date(((firstTimestamp ?? conversation.createdAt) || conversation.createdAt) * 1000));
+      const weekKey = getIsoWeekKey(
+        new Date(
+          ((firstTimestamp ?? conversation.createdAt) ||
+            conversation.createdAt) * 1000
+        )
+      );
       return {
         id: conversation.id,
         tokens,
         wordCount,
         messageCount,
         sentiment: messageCount ? sentimentTotal / messageCount : 0,
-        week: weekKey
+        week: weekKey,
       };
     })
     .filter((doc): doc is TopicDocument => Boolean(doc));
 }
 
-function buildVocabulary(documents: TopicDocument[], maxFeatures = 1500, minDocumentFrequency = 2) {
+function buildVocabulary(
+  documents: TopicDocument[],
+  maxFeatures = 1500,
+  minDocumentFrequency = 2
+) {
   const counts = new Map<string, number>();
   documents.forEach((doc) => {
     const seen = new Set(doc.tokens);
@@ -386,7 +447,10 @@ function buildVocabulary(documents: TopicDocument[], maxFeatures = 1500, minDocu
     }, new Map<string, number>());
 }
 
-function buildVectors(documents: TopicDocument[], vocabulary: Map<string, number>): SparseVector[] {
+function buildVectors(
+  documents: TopicDocument[],
+  vocabulary: Map<string, number>
+): SparseVector[] {
   if (!vocabulary.size) {
     return documents.map(() => ({ weights: new Map() }));
   }
@@ -420,7 +484,10 @@ function buildVectors(documents: TopicDocument[], vocabulary: Map<string, number
       if (index === undefined) return;
       counts.set(index, (counts.get(index) || 0) + 1);
     });
-    const total = Array.from(counts.values()).reduce((sum, value) => sum + value, 0);
+    const total = Array.from(counts.values()).reduce(
+      (sum, value) => sum + value,
+      0
+    );
     if (!total) {
       return { weights };
     }
@@ -462,13 +529,21 @@ function cosineSimilarity(vector: SparseVector, centroid: Map<number, number>) {
   return total;
 }
 
-function recomputeCentroids(assignments: number[], vectors: SparseVector[], k: number, randomIndices: number[]): Map<number, number>[] {
+function recomputeCentroids(
+  assignments: number[],
+  vectors: SparseVector[],
+  k: number,
+  randomIndices: number[]
+): Map<number, number>[] {
   const totals = Array.from({ length: k }, () => new Map<number, number>());
   const counts = Array.from({ length: k }, () => 0);
   assignments.forEach((clusterIndex, vectorIndex) => {
     counts[clusterIndex] += 1;
     vectors[vectorIndex].weights.forEach((value, key) => {
-      totals[clusterIndex].set(key, (totals[clusterIndex].get(key) || 0) + value);
+      totals[clusterIndex].set(
+        key,
+        (totals[clusterIndex].get(key) || 0) + value
+      );
     });
   });
   return totals.map((total, index) => {
@@ -499,7 +574,11 @@ function chooseClusterCount(documents: number) {
   return Math.max(3, Math.min(8, Math.floor(Math.sqrt(documents)) + 1));
 }
 
-function extractKeywords(indices: number[], documents: TopicDocument[], limit = 5) {
+function extractKeywords(
+  indices: number[],
+  documents: TopicDocument[],
+  limit = 5
+) {
   const counts = new Map<string, number>();
   indices.forEach((index) => {
     documents[index].tokens.forEach((token) => {
@@ -514,11 +593,13 @@ function extractKeywords(indices: number[], documents: TopicDocument[], limit = 
 }
 
 function formatTopicLabel(keywords: string[]) {
-  if (!keywords.length) return 'General';
+  if (!keywords.length) return "General";
   return keywords[0].replace(/^\w/, (char) => char.toUpperCase());
 }
 
-export function estimateTopics(conversations: NormalizedConversation[]): TopicAnalysis {
+export function estimateTopics(
+  conversations: NormalizedConversation[]
+): TopicAnalysis {
   const documents = buildTopicDocuments(conversations);
   if (!documents.length) {
     return { topics: [], series: [] };
@@ -530,7 +611,10 @@ export function estimateTopics(conversations: NormalizedConversation[]): TopicAn
   const clusterCount = hasSignal ? chooseClusterCount(documents.length) : 1;
 
   const random = createSeededRandom();
-  const initialOrder = Array.from({ length: vectors.length }, (_, index) => index);
+  const initialOrder = Array.from(
+    { length: vectors.length },
+    (_, index) => index
+  );
   for (let i = initialOrder.length - 1; i > 0; i -= 1) {
     const j = Math.floor(random() * (i + 1));
     [initialOrder[i], initialOrder[j]] = [initialOrder[j], initialOrder[i]];
@@ -572,8 +656,12 @@ export function estimateTopics(conversations: NormalizedConversation[]): TopicAn
     bucket.push(docIndex);
     grouped.set(key, bucket);
 
-    const weekBucket = weekBuckets.get(documents[docIndex].week) || new Map<number, number>();
-    weekBucket.set(key, (weekBucket.get(key) || 0) + documents[docIndex].wordCount);
+    const weekBucket =
+      weekBuckets.get(documents[docIndex].week) || new Map<number, number>();
+    weekBucket.set(
+      key,
+      (weekBucket.get(key) || 0) + documents[docIndex].wordCount
+    );
     weekBuckets.set(documents[docIndex].week, weekBucket);
   });
 
@@ -582,10 +670,17 @@ export function estimateTopics(conversations: NormalizedConversation[]): TopicAn
     .map<Topic>(([clusterIndex, indices]) => {
       const keywords = extractKeywords(indices, documents);
       const label = formatTopicLabel(keywords);
-      const size = indices.reduce((sum, index) => sum + documents[index].wordCount, 0);
-      const messages = indices.reduce((sum, index) => sum + documents[index].messageCount, 0);
+      const size = indices.reduce(
+        (sum, index) => sum + documents[index].wordCount,
+        0
+      );
+      const messages = indices.reduce(
+        (sum, index) => sum + documents[index].messageCount,
+        0
+      );
       const sentimentTotal = indices.reduce(
-        (sum, index) => sum + documents[index].sentiment * documents[index].messageCount,
+        (sum, index) =>
+          sum + documents[index].sentiment * documents[index].messageCount,
         0
       );
       const topic: Topic = {
@@ -594,7 +689,7 @@ export function estimateTopics(conversations: NormalizedConversation[]): TopicAn
         size,
         color: TOPIC_COLOR_POOL[clusterIndex % TOPIC_COLOR_POOL.length],
         messages,
-        sentiment: messages ? sentimentTotal / messages : undefined
+        sentiment: messages ? sentimentTotal / messages : undefined,
       };
       if (keywords.length) {
         topic.keywords = keywords.slice(0, 5);
@@ -607,7 +702,9 @@ export function estimateTopics(conversations: NormalizedConversation[]): TopicAn
   const series: TopicSeriesPoint[] = Array.from(weekBuckets.entries())
     .sort((a, b) => a[0].localeCompare(b[0]))
     .map(([week, breakdown]) => {
-      const total = Array.from(breakdown.values()).reduce((sum, value) => sum + value, 0) || 1;
+      const total =
+        Array.from(breakdown.values()).reduce((sum, value) => sum + value, 0) ||
+        1;
       const entries = Array.from(breakdown.entries())
         .map(([_clusterIndex, words]) => {
           const topic = clusterMeta.get(_clusterIndex);
@@ -615,10 +712,15 @@ export function estimateTopics(conversations: NormalizedConversation[]): TopicAn
           return {
             topic_id: topic.topic_id,
             label: topic.label,
-            share: words / total
+            share: words / total,
           };
         })
-        .filter((entry): entry is { topic_id: string; label: string; share: number } => Boolean(entry))
+        .filter(
+          (
+            entry
+          ): entry is { topic_id: string; label: string; share: number } =>
+            Boolean(entry)
+        )
         .sort((a, b) => b.share - a.share);
       return { week, breakdown: entries };
     })
@@ -627,13 +729,15 @@ export function estimateTopics(conversations: NormalizedConversation[]): TopicAn
   return { topics, series };
 }
 
-export function buildConversationSummaries(conversations: NormalizedConversation[]): ConversationSummary[] {
+export function buildConversationSummaries(
+  conversations: NormalizedConversation[]
+): ConversationSummary[] {
   return conversations
     .map((conversation) => ({
       conversation_id: conversation.id,
       title: conversation.title,
       messages: conversation.messages.length,
-      start: new Date(conversation.createdAt * 1000).toISOString().slice(0, 10)
+      start: new Date(conversation.createdAt * 1000).toISOString().slice(0, 10),
     }))
     .sort((a, b) => b.messages - a.messages);
 }
@@ -667,7 +771,7 @@ function computeTopWords(conversations: NormalizedConversation[], limit = 5) {
   const counts = new Map<string, number>();
   conversations.forEach((conversation) => {
     conversation.messages.forEach((message) => {
-      if (message.role !== 'user') return;
+      if (message.role !== "user") return;
       const tokens = message.text.toLowerCase().match(/[a-z0-9']+/g);
       tokens?.forEach((token) => {
         if (token.length < 3 || STOPWORDS.has(token)) return;
@@ -681,15 +785,23 @@ function computeTopWords(conversations: NormalizedConversation[], limit = 5) {
     .map(([term, count]) => ({ term, count }));
 }
 
-function computeStupidQuestions(conversations: NormalizedConversation[]): number {
+function computeStupidQuestions(
+  conversations: NormalizedConversation[]
+): number {
   const candidates: string[] = [];
   conversations.forEach((conversation) => {
     conversation.messages.forEach((message) => {
-      if (message.role === 'user') {
+      if (message.role === "user") {
         const words = message.text.trim().split(/\s+/);
         if (words.length <= 5) {
           const lower = message.text.toLowerCase();
-          if (lower.startsWith('how') || lower.startsWith('what') || lower.startsWith('why') || lower.startsWith('is') || lower.startsWith('can')) {
+          if (
+            lower.startsWith("how") ||
+            lower.startsWith("what") ||
+            lower.startsWith("why") ||
+            lower.startsWith("is") ||
+            lower.startsWith("can")
+          ) {
             candidates.push(message.text);
           }
         }
@@ -699,19 +811,32 @@ function computeStupidQuestions(conversations: NormalizedConversation[]): number
   return Math.ceil(candidates.length * 0.05);
 }
 
-function computeWeirdestRequest(conversations: NormalizedConversation[]): string | undefined {
+function computeWeirdestRequest(
+  conversations: NormalizedConversation[]
+): string | undefined {
   let weirdestMessage = "";
   let maxWordLength = 0;
   let explicitWeirdMessage = "";
-  
-  const weirdKeywords = ["weird", "strange", "odd", "bizarre", "crazy", "funny", "random"];
+
+  const weirdKeywords = [
+    "weird",
+    "strange",
+    "odd",
+    "bizarre",
+    "crazy",
+    "funny",
+    "random",
+  ];
 
   conversations.forEach((conversation) => {
     conversation.messages.forEach((message) => {
-      if (message.role === 'user') {
+      if (message.role === "user") {
         const text = message.text.toLowerCase();
-        
-        if (!explicitWeirdMessage && weirdKeywords.some(kw => text.includes(kw))) {
+
+        if (
+          !explicitWeirdMessage &&
+          weirdKeywords.some((kw) => text.includes(kw))
+        ) {
           if (message.text.length < 300) {
             explicitWeirdMessage = message.text;
           }
@@ -727,7 +852,7 @@ function computeWeirdestRequest(conversations: NormalizedConversation[]): string
       }
     });
   });
-  
+
   const selectedMessage = explicitWeirdMessage || weirdestMessage;
   return selectedMessage ? selectedMessage.slice(0, 150) : undefined;
 }
@@ -742,14 +867,14 @@ function computeRightCount(conversations: NormalizedConversation[]): number {
     "you are absolutely right",
     "you're right",
     "that is correct",
-    "you are correct"
+    "you are correct",
   ];
 
   conversations.forEach((conversation) => {
     conversation.messages.forEach((message) => {
-      if (message.role === 'assistant') {
+      if (message.role === "assistant") {
         const lower = message.text.toLowerCase();
-        if (validationPhrases.some(phrase => lower.includes(phrase))) {
+        if (validationPhrases.some((phrase) => lower.includes(phrase))) {
           count++;
         }
       }
@@ -766,8 +891,12 @@ export function filterConversationsByDate(
   if (!start && !end) {
     return conversations;
   }
-  const startTs = start ? new Date(`${start}T00:00:00Z`).getTime() / 1000 : Number.NEGATIVE_INFINITY;
-  const endTs = end ? new Date(`${end}T23:59:59Z`).getTime() / 1000 : Number.POSITIVE_INFINITY;
+  const startTs = start
+    ? new Date(`${start}T00:00:00Z`).getTime() / 1000
+    : Number.NEGATIVE_INFINITY;
+  const endTs = end
+    ? new Date(`${end}T23:59:59Z`).getTime() / 1000
+    : Number.POSITIVE_INFINITY;
 
   return conversations
     .map((conversation) => {
@@ -783,14 +912,19 @@ export function filterConversationsByDate(
         ...conversation,
         createdAt: firstMessage.createdAt,
         updatedAt: lastMessage.createdAt,
-        messages
+        messages,
       };
       return updatedConversation;
     })
-    .filter((conversation): conversation is NormalizedConversation => conversation !== null);
+    .filter(
+      (conversation): conversation is NormalizedConversation =>
+        conversation !== null
+    );
 }
 
-export function runLocalAnalysis(conversations: NormalizedConversation[]): WrappedData {
+export function runLocalAnalysis(
+  conversations: NormalizedConversation[]
+): WrappedData {
   const activity = computeDaily(conversations);
   const totals = computeTotals(conversations);
   const longestStreakDays = computeLongestStreak(activity);
@@ -806,22 +940,28 @@ export function runLocalAnalysis(conversations: NormalizedConversation[]): Wrapp
   const weirdestRequest = computeWeirdestRequest(conversations);
   const rightCount = computeRightCount(conversations);
   const activeDays = activity.length;
-  const periodStart = activity[0]?.date || new Date().toISOString().slice(0, 10);
+  const periodStart =
+    activity[0]?.date || new Date().toISOString().slice(0, 10);
   const periodEnd = activity[activity.length - 1]?.date || periodStart;
-  const periodDays =
-    Math.max(1, Math.floor((new Date(periodEnd).getTime() - new Date(periodStart).getTime()) / 86400000) + 1);
+  const periodDays = Math.max(
+    1,
+    Math.floor(
+      (new Date(periodEnd).getTime() - new Date(periodStart).getTime()) /
+        86400000
+    ) + 1
+  );
 
   const summary: Summary = {
     period: {
       start: periodStart,
-      end: periodEnd
+      end: periodEnd,
     },
     totals,
     most_active_hour: mostActiveHour,
     longest_streak_days: longestStreakDays,
     top_topics: topics.slice(0, 3).map((topic) => ({
       label: topic.label,
-      pct: totals.words ? topic.size / totals.words : 0
+      pct: totals.words ? topic.size / totals.words : 0,
     })),
     modes,
     fun: {
@@ -835,8 +975,10 @@ export function runLocalAnalysis(conversations: NormalizedConversation[]): Wrapp
       active_days: activeDays,
       period_days: periodDays,
       user_words_pct: totals.words ? totals.userWords / totals.words : 0,
-      assistant_words_pct: totals.words ? totals.assistantWords / totals.words : 0
-    }
+      assistant_words_pct: totals.words
+        ? totals.assistantWords / totals.words
+        : 0,
+    },
   };
 
   return {
@@ -846,6 +988,6 @@ export function runLocalAnalysis(conversations: NormalizedConversation[]): Wrapp
     topicSeries,
     conversations: conversationsSummary,
     hours,
-    modeSeries
+    modeSeries,
   };
 }

@@ -34,8 +34,8 @@ declare namespace __next_route_internal_types__ {
     | `/api/generate-labels`
     | `/explore/activity`
     | `/explore/conversations`
-    | `/explore/modes`
     | `/explore/topics`
+    | `/explore/modes`
     | `/import`
   type DynamicRoutes<T extends string = string> = never
 
