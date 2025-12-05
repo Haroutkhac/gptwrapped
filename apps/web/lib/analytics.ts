@@ -515,8 +515,7 @@ function extractKeywords(indices: number[], documents: TopicDocument[], limit = 
 
 function formatTopicLabel(keywords: string[]) {
   if (!keywords.length) return 'General';
-  if (keywords.length === 1) return keywords[0].replace(/^\w/, (char) => char.toUpperCase());
-  return `${keywords[0].replace(/^\w/, (char) => char.toUpperCase())} & ${keywords[1].replace(/^\w/, (char) => char.toUpperCase())}`;
+  return keywords[0].replace(/^\w/, (char) => char.toUpperCase());
 }
 
 export function estimateTopics(conversations: NormalizedConversation[]): TopicAnalysis {
@@ -664,6 +663,101 @@ function computeTopKeyword(conversations: NormalizedConversation[]) {
   return best;
 }
 
+function computeTopWords(conversations: NormalizedConversation[], limit = 5) {
+  const counts = new Map<string, number>();
+  conversations.forEach((conversation) => {
+    conversation.messages.forEach((message) => {
+      if (message.role !== 'user') return;
+      const tokens = message.text.toLowerCase().match(/[a-z0-9']+/g);
+      tokens?.forEach((token) => {
+        if (token.length < 3 || STOPWORDS.has(token)) return;
+        counts.set(token, (counts.get(token) || 0) + 1);
+      });
+    });
+  });
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit)
+    .map(([term, count]) => ({ term, count }));
+}
+
+function computeStupidQuestions(conversations: NormalizedConversation[]): number {
+  const candidates: string[] = [];
+  conversations.forEach((conversation) => {
+    conversation.messages.forEach((message) => {
+      if (message.role === 'user') {
+        const words = message.text.trim().split(/\s+/);
+        if (words.length <= 5) {
+          const lower = message.text.toLowerCase();
+          if (lower.startsWith('how') || lower.startsWith('what') || lower.startsWith('why') || lower.startsWith('is') || lower.startsWith('can')) {
+            candidates.push(message.text);
+          }
+        }
+      }
+    });
+  });
+  return Math.ceil(candidates.length * 0.05);
+}
+
+function computeWeirdestRequest(conversations: NormalizedConversation[]): string | undefined {
+  let weirdestMessage = "";
+  let maxWordLength = 0;
+  let explicitWeirdMessage = "";
+  
+  const weirdKeywords = ["weird", "strange", "odd", "bizarre", "crazy", "funny", "random"];
+
+  conversations.forEach((conversation) => {
+    conversation.messages.forEach((message) => {
+      if (message.role === 'user') {
+        const text = message.text.toLowerCase();
+        
+        if (!explicitWeirdMessage && weirdKeywords.some(kw => text.includes(kw))) {
+          if (message.text.length < 300) {
+            explicitWeirdMessage = message.text;
+          }
+        }
+
+        const words = message.text.split(/\s+/);
+        for (const word of words) {
+          if (word.length > maxWordLength) {
+            maxWordLength = word.length;
+            weirdestMessage = message.text;
+          }
+        }
+      }
+    });
+  });
+  
+  const selectedMessage = explicitWeirdMessage || weirdestMessage;
+  return selectedMessage ? selectedMessage.slice(0, 150) : undefined;
+}
+
+function computeRightCount(conversations: NormalizedConversation[]): number {
+  let count = 0;
+  const validationPhrases = [
+    "you are right",
+    "you're correct",
+    "good point",
+    "that's correct",
+    "you are absolutely right",
+    "you're right",
+    "that is correct",
+    "you are correct"
+  ];
+
+  conversations.forEach((conversation) => {
+    conversation.messages.forEach((message) => {
+      if (message.role === 'assistant') {
+        const lower = message.text.toLowerCase();
+        if (validationPhrases.some(phrase => lower.includes(phrase))) {
+          count++;
+        }
+      }
+    });
+  });
+  return count;
+}
+
 export function filterConversationsByDate(
   conversations: NormalizedConversation[],
   start?: string,
@@ -707,6 +801,10 @@ export function runLocalAnalysis(conversations: NormalizedConversation[]): Wrapp
   const conversationsSummary = buildConversationSummaries(conversations);
   const hours = computeHourBuckets(conversations);
   const topKeyword = computeTopKeyword(conversations);
+  const topWords = computeTopWords(conversations, 5);
+  const stupidQuestionCount = computeStupidQuestions(conversations);
+  const weirdestRequest = computeWeirdestRequest(conversations);
+  const rightCount = computeRightCount(conversations);
   const activeDays = activity.length;
   const periodStart = activity[0]?.date || new Date().toISOString().slice(0, 10);
   const periodEnd = activity[activity.length - 1]?.date || periodStart;
@@ -730,6 +828,10 @@ export function runLocalAnalysis(conversations: NormalizedConversation[]): Wrapp
       novel_pages: computeNovelPages(totals.words),
       avg_words_per_day: activeDays ? Math.round(totals.words / activeDays) : 0,
       top_keyword: topKeyword ?? undefined,
+      top_words: topWords.length ? topWords : undefined,
+      stupid_question_count: stupidQuestionCount,
+      weirdest_request: weirdestRequest,
+      right_count: rightCount,
       active_days: activeDays,
       period_days: periodDays,
       user_words_pct: totals.words ? totals.userWords / totals.words : 0,

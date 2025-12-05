@@ -29,6 +29,15 @@ export const funSchema = z.object({
       count: z.number().min(0)
     })
     .optional(),
+  top_words: z.array(
+    z.object({
+      term: z.string(),
+      count: z.number().min(0)
+    })
+  ).optional(),
+  right_count: z.number().min(0).optional(),
+  stupid_question_count: z.number().min(0).optional(),
+  weirdest_request: z.string().optional(),
   active_days: z.number().min(0),
   period_days: z.number().min(0),
   user_words_pct: z.number().min(0).max(1),
