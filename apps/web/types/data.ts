@@ -88,7 +88,8 @@ export const conversationSummarySchema = z.object({
   conversation_id: z.string(),
   title: z.string(),
   messages: z.number().min(0),
-  start: z.string()
+  start: z.string(),
+  topic_id: z.string().optional()
 });
 
 export const hourBucketSchema = z.object({

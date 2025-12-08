@@ -134,7 +134,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         <Hash size={64} className="text-white" />
       </div>
       <h2 className="text-3xl md:text-5xl font-bold text-white mb-12">
-        What you wouldn't stop talking about
+        What you wouldn&apos;t stop talking about
       </h2>
       <div className="flex flex-col gap-4 w-full max-w-md">
         {data.summary.top_topics.slice(0, 3).map((topic, i) => (
@@ -207,7 +207,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
       <p className="text-xl text-yellow-100 max-w-2xl font-medium bg-yellow-900/30 p-4 rounded-lg">
         That puts you in the top{" "}
         <span className="font-black text-yellow-400">0.001%</span> of users who
-        clearly didn't want to Google it.
+        clearly didn&apos;t want to Google it.
       </p>
     </div>
   );
@@ -223,14 +223,14 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
       </h2>
       <div className="bg-white/10 p-8 rounded-2xl backdrop-blur-md max-w-3xl shadow-xl border border-white/10">
         <p className="text-xl md:text-3xl font-serif italic text-indigo-100 leading-relaxed">
-          "
+          &quot;
           {data.summary.fun.weirdest_request ||
             "No weird requests found (boring!)"}
-          "
+          &quot;
         </p>
       </div>
       <p className="text-indigo-300 mt-8 text-lg">
-        We're not judging. Okay, maybe a little bit.
+        We&apos;re not judging. Okay, maybe a little bit.
       </p>
     </div>
   );
@@ -253,7 +253,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         </span>
       </div>
       <p className="text-xl md:text-2xl text-green-100 max-w-2xl mt-8 font-light">
-        At least that's what the AI told you to make you feel better.
+        At least that&apos;s what the AI told you to make you feel better.
       </p>
     </div>
   );

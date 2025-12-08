@@ -6,17 +6,21 @@ interface TrackRowProps {
   index: number;
   title: string;
   subTitle?: string;
-  meta?: string; // e.g., Date
-  endMeta?: string; // e.g., Duration/Count
+  meta?: string;
+  endMeta?: string;
   onClick?: () => void;
   icon?: React.ReactNode;
+  isActive?: boolean;
 }
 
-export default function TrackRow({ index, title, subTitle, meta, endMeta, onClick, icon }: TrackRowProps) {
+export default function TrackRow({ index, title, subTitle, meta, endMeta, onClick, icon, isActive }: TrackRowProps) {
   return (
     <div 
       onClick={onClick}
-      className="group grid grid-cols-[auto_1fr_auto] gap-4 px-4 py-2 rounded-md hover:bg-[rgba(255,255,255,0.1)] items-center cursor-pointer transition-colors"
+      className={clsx(
+        "group grid grid-cols-[auto_1fr_auto] gap-4 px-4 py-2 rounded-md hover:bg-[rgba(255,255,255,0.1)] items-center cursor-pointer transition-colors",
+        isActive && "bg-[rgba(255,255,255,0.1)]"
+      )}
     >
       <div className="w-8 text-[#B3B3B3] text-sm text-center group-hover:text-white flex items-center justify-center">
         <span className="group-hover:hidden">{index}</span>
