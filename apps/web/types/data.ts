@@ -7,6 +7,7 @@ export const periodSchema = z.object({
 
 export const totalsSchema = z.object({
   messages: z.number(),
+  userMessages: z.number().optional(),
   words: z.number()
 });
 
@@ -38,6 +39,7 @@ export const funSchema = z.object({
   right_count: z.number().min(0).optional(),
   stupid_question_count: z.number().min(0).optional(),
   weirdest_request: z.string().optional(),
+  late_night_count: z.number().min(0).optional(),
   active_days: z.number().min(0),
   period_days: z.number().min(0),
   user_words_pct: z.number().min(0).max(1),

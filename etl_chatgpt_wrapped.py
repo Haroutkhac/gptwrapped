@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import random
 import re
 import sys
@@ -17,7 +18,20 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Sequence, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+try:
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
+    OpenAI = None
 
 WORD_PATTERN = re.compile(r"[A-Za-z0-9_']+")
 
@@ -46,7 +60,55 @@ TOPIC_COLOR_POOL = ['#8b5cf6', '#f472b6', '#22d3ee', '#facc15', '#34d399', '#f97
 
 STOPWORDS = {
     'the', 'and', 'for', 'with', 'that', 'this', 'from', 'you', 'your', 'are', 'have', 'was', 'were', 'about', 'into',
-    'what', 'when', 'which', 'their', 'will', 'just', 'but', 'can', 'all', 'any', 'per', 'tot', 'one'
+    'what', 'when', 'which', 'their', 'will', 'just', 'but', 'can', 'all', 'any', 'per', 'tot', 'one',
+    'how', 'why', 'who', 'where', 'there', 'here', 'been', 'being', 'would', 'could', 'should', 'might',
+    'must', 'shall', 'may', 'does', 'did', 'has', 'had', 'having', 'doing', 'done', 'made', 'make',
+    'them', 'they', 'its', 'also', 'than', 'then', 'now', 'only', 'very', 'just', 'more', 'most',
+    'some', 'such', 'other', 'each', 'every', 'both', 'few', 'many', 'much', 'own', 'same', 'well',
+    'back', 'even', 'still', 'way', 'take', 'come', 'want', 'give', 'use', 'used', 'using', 'get',
+    'got', 'getting', 'going', 'know', 'think', 'see', 'look', 'like', 'need', 'try', 'let', 'keep',
+    'say', 'said', 'tell', 'ask', 'asked', 'work', 'working', 'works', 'first', 'last', 'new', 'old',
+    'good', 'great', 'best', 'better', 'right', 'wrong', 'sure', 'yes', 'not', 'don', 'doesn', 'didn',
+    'won', 'isn', 'aren', 'wasn', 'weren', 'haven', 'hasn', 'hadn', 'wouldn', 'couldn', 'shouldn',
+    'ain', 'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'he', 'him', 'his', 'himself',
+    'she', 'her', 'hers', 'herself', 'it', 'itself', 'these', 'those', 'am', 'is', 'be', 'or', 'as',
+    'of', 'at', 'by', 'to', 'up', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further',
+    'once', 'during', 'before', 'after', 'above', 'below', 'between', 'through', 'while', 'no',
+    'nor', 'so', 'too', 'if', 'because', 'until', 'against', 'without', 'within', 'along', 'around',
+    'const', 'let', 'var', 'function', 'return', 'import', 'export', 'class', 'def', 'self',
+    'async', 'await', 'true', 'false', 'null', 'undefined', 'none', 'int', 'str', 'bool', 'float',
+    'list', 'dict', 'array', 'object', 'string', 'number', 'type', 'interface', 'enum', 'void',
+    'public', 'private', 'static', 'final', 'abstract', 'extends', 'implements', 'super', 'new',
+    'try', 'catch', 'throw', 'throws', 'finally', 'if', 'else', 'elif', 'switch', 'case', 'default',
+    'while', 'for', 'do', 'break', 'continue', 'pass', 'yield', 'lambda', 'with', 'as', 'from',
+    'print', 'println', 'console', 'log', 'error', 'warn', 'info', 'debug',
+    'data', 'value', 'values', 'key', 'keys', 'item', 'items', 'index', 'name', 'names',
+    'file', 'files', 'path', 'paths', 'url', 'urls', 'id', 'ids', 'code', 'codes',
+    'result', 'results', 'output', 'input', 'inputs', 'outputs', 'param', 'params', 'arg', 'args',
+    'text', 'message', 'messages', 'response', 'request', 'query', 'queries',
+    'add', 'added', 'adding', 'create', 'created', 'creating', 'update', 'updated', 'updating',
+    'delete', 'deleted', 'deleting', 'remove', 'removed', 'removing', 'set', 'sets', 'setting',
+    'change', 'changed', 'changing', 'fix', 'fixed', 'fixing', 'check', 'checked', 'checking',
+    'show', 'showing', 'shows', 'display', 'displayed', 'displaying', 'render', 'rendered',
+    'test', 'tests', 'testing', 'run', 'runs', 'running', 'call', 'calls', 'calling',
+    'start', 'started', 'starting', 'end', 'ended', 'ending', 'stop', 'stopped', 'stopping',
+    'read', 'reads', 'reading', 'write', 'writes', 'writing', 'load', 'loads', 'loading',
+    'save', 'saves', 'saving', 'send', 'sends', 'sending', 'receive', 'receives', 'receiving',
+    'find', 'finds', 'finding', 'search', 'searching', 'filter', 'filters', 'filtering',
+    'sort', 'sorts', 'sorting', 'map', 'maps', 'mapping', 'reduce', 'reduces', 'reducing',
+    'parse', 'parses', 'parsing', 'format', 'formats', 'formatting', 'convert', 'converts',
+    'handle', 'handles', 'handling', 'process', 'processes', 'processing', 'build', 'builds',
+    'example', 'examples', 'sample', 'samples', 'something', 'anything', 'nothing', 'everything',
+    'thing', 'things', 'stuff', 'part', 'parts', 'section', 'sections', 'line', 'lines',
+    'help', 'helps', 'helping', 'please', 'thanks', 'thank', 'sorry', 'okay', 'yeah', 'yep',
+    'actually', 'basically', 'really', 'probably', 'maybe', 'perhaps', 'definitely', 'certainly',
+    'currently', 'already', 'always', 'never', 'sometimes', 'often', 'usually', 'instead',
+    'however', 'therefore', 'otherwise', 'although', 'though', 'since', 'unless', 'whether',
+    'able', 'possible', 'different', 'similar', 'simple', 'complex', 'basic', 'main', 'specific',
+    'various', 'certain', 'entire', 'whole', 'another', 'multiple', 'single', 'several',
+    'cite', 'cites', 'cited', 'citing', 'speaker', 'speakers', 'frac', 'turn', 'turns',
+    '000', '001', '002', '003', '004', '005', '006', '007', '008', '009',
+    'app', 'apps', 'api', 'apis', 'node', 'nodes', 'time', 'times'
 }
 
 MODE_RULES = [
@@ -474,12 +536,102 @@ def run_kmeans(vectors: Sequence[SparseVector], k: int, max_iterations: int = 40
     return assignments
 
 
-def estimate_cluster_count(doc_count: int) -> int:
-    if doc_count <= 2:
-        return doc_count
-    if doc_count < 6:
-        return 2
-    return max(3, min(8, int(math.sqrt(doc_count)) + 1))
+def sparse_vector_similarity(v1: SparseVector, v2: SparseVector) -> float:
+    if not v1.weights or not v2.weights:
+        return 0.0
+    dot = 0.0
+    for idx, val in v1.weights.items():
+        if idx in v2.weights:
+            dot += val * v2.weights[idx]
+    return dot
+
+
+def compute_silhouette_score(vectors: Sequence[SparseVector], assignments: List[int]) -> float:
+    n = len(vectors)
+    if n < 2:
+        return 0.0
+    
+    cluster_indices: Dict[int, List[int]] = defaultdict(list)
+    for i, cluster_id in enumerate(assignments):
+        cluster_indices[cluster_id].append(i)
+    
+    num_clusters = len(cluster_indices)
+    if num_clusters < 2:
+        return 0.0
+    
+    silhouette_sum = 0.0
+    valid_count = 0
+    
+    for i in range(n):
+        my_cluster = assignments[i]
+        my_cluster_members = cluster_indices[my_cluster]
+        
+        if len(my_cluster_members) <= 1:
+            continue
+        
+        a_sum = 0.0
+        for j in my_cluster_members:
+            if i != j:
+                sim = sparse_vector_similarity(vectors[i], vectors[j])
+                a_sum += (1.0 - sim)
+        a = a_sum / (len(my_cluster_members) - 1)
+        
+        b = float('inf')
+        for other_cluster, members in cluster_indices.items():
+            if other_cluster == my_cluster:
+                continue
+            if not members:
+                continue
+            b_sum = 0.0
+            for j in members:
+                sim = sparse_vector_similarity(vectors[i], vectors[j])
+                b_sum += (1.0 - sim)
+            avg_dist = b_sum / len(members)
+            if avg_dist < b:
+                b = avg_dist
+        
+        if b == float('inf'):
+            continue
+        
+        denom = max(a, b)
+        if denom > 0:
+            s = (b - a) / denom
+            silhouette_sum += s
+            valid_count += 1
+    
+    if valid_count == 0:
+        return 0.0
+    return silhouette_sum / valid_count
+
+
+def find_optimal_cluster_count(vectors: Sequence[SparseVector], min_k: int = 2, max_k: int = 12) -> int:
+    n = len(vectors)
+    if n <= 2:
+        return max(1, n)
+    
+    max_k = min(max_k, n - 1)
+    min_k = max(2, min_k)
+    
+    if min_k > max_k:
+        return min_k
+    
+    best_k = min_k
+    best_score = -1.0
+    
+    for k in range(min_k, max_k + 1):
+        assignments = run_kmeans(vectors, k)
+        
+        actual_clusters = len(set(assignments))
+        if actual_clusters < 2:
+            continue
+        
+        score = compute_silhouette_score(vectors, assignments)
+        
+        if score > best_score:
+            best_score = score
+            best_k = k
+    
+    return best_k
 
 
 def extract_keywords(doc_indices: Sequence[int], documents: Sequence[TopicDocument], limit: int = 5) -> List[str]:
@@ -506,17 +658,85 @@ def format_topic_label(keywords: Sequence[str]) -> str:
     return f'{primary} & {secondary}'
 
 
-def estimate_topics(conversations: Sequence[NormalizedConversation]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+def generate_ai_labels(
+    client: Any,
+    cluster_titles: List[List[str]]
+) -> List[Dict[str, str]]:
+    labels: List[Dict[str, str]] = []
+    
+    for titles in cluster_titles:
+        sample_titles = titles[:20]
+        titles_text = '\n- '.join(sample_titles)
+        
+        try:
+            response = client.chat.completions.create(
+                model='gpt-4o-mini',
+                messages=[
+                    {
+                        'role': 'system',
+                        'content': '''You analyze conversation titles from a ChatGPT history export and create meaningful topic labels.
+
+Your task: Look at the conversation titles and identify the MAIN THEME or SUBJECT AREA they share.
+
+Rules for labels:
+- Be SPECIFIC and DESCRIPTIVE (e.g., "React Development", "Python Debugging", "Creative Writing", "Career Advice")
+- Focus on the actual subject matter, not generic words
+- Use 2-4 words that a human would understand
+- If conversations are about coding, specify the language/framework (e.g., "TypeScript APIs" not just "Code")
+- If about a specific domain, name it (e.g., "Machine Learning", "Web Design", "Business Strategy")
+
+Respond in JSON: {"label": "...", "description": "..."}'''
+                    },
+                    {
+                        'role': 'user',
+                        'content': f'''Here are conversation titles from one semantic cluster. What topic/theme do they share?
+
+Conversation titles:
+- {titles_text}
+
+Generate a specific, meaningful label and brief description.'''
+                    }
+                ],
+                response_format={'type': 'json_object'},
+                temperature=0.5,
+                max_tokens=150
+            )
+            
+            content = response.choices[0].message.content or '{}'
+            parsed = json.loads(content)
+            labels.append({
+                'label': parsed.get('label', f'Topic {len(labels) + 1}'),
+                'description': parsed.get('description', 'A cluster of related conversations.')
+            })
+        except Exception:
+            labels.append({
+                'label': f'Topic {len(labels) + 1}',
+                'description': 'A cluster of related conversations.'
+            })
+    
+    return labels
+
+
+def estimate_topics(
+    conversations: Sequence[NormalizedConversation],
+    openai_client: Optional[Any] = None
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], Dict[str, str]]:
     documents = build_topic_documents(conversations)
     if not documents:
-        return [], []
+        return [], [], {}
     vocab = build_vocabulary(documents)
     vectors = build_vectors(documents, vocab)
     populated_vectors = any(vector.weights for vector in vectors)
-    cluster_count = estimate_cluster_count(len(documents))
+    
     if not populated_vectors:
         cluster_count = 1
-    assignments = run_kmeans(vectors, cluster_count) if populated_vectors else [0] * len(documents)
+        assignments = [0] * len(documents)
+    else:
+        print("Finding optimal number of topics using silhouette analysis...")
+        cluster_count = find_optimal_cluster_count(vectors, min_k=2, max_k=12)
+        print(f"Optimal topic count: {cluster_count}")
+        assignments = run_kmeans(vectors, cluster_count)
+    
     clusters: Dict[int, List[int]] = defaultdict(list)
     series_buckets: Dict[str, Dict[int, int]] = defaultdict(lambda: defaultdict(int))
     for doc_index, cluster_index in enumerate(assignments):
@@ -524,14 +744,33 @@ def estimate_topics(conversations: Sequence[NormalizedConversation]) -> Tuple[Li
         clusters[key].append(doc_index)
         bucket = series_buckets[documents[doc_index].week]
         bucket[key] = bucket.get(key, 0) + documents[doc_index].word_count
+    
+    cluster_titles: List[List[str]] = []
+    cluster_order = sorted(clusters.keys())
+    for cluster_index in cluster_order:
+        doc_indices = clusters[cluster_index]
+        titles = [documents[idx].title for idx in doc_indices]
+        cluster_titles.append(titles)
+    
+    ai_labels: List[Dict[str, str]] = []
+    if openai_client is not None:
+        print("Generating topic labels with AI...")
+        ai_labels = generate_ai_labels(openai_client, cluster_titles)
+    
     palette_size = len(TOPIC_COLOR_POOL)
     topics: List[Dict[str, Any]] = []
     cluster_meta: Dict[int, Dict[str, Any]] = {}
-    for cluster_index, doc_indices in clusters.items():
+    for order_idx, cluster_index in enumerate(cluster_order):
+        doc_indices = clusters[cluster_index]
         if not doc_indices:
             continue
         keywords = extract_keywords(doc_indices, documents)
-        label = format_topic_label(keywords)
+        
+        if ai_labels and order_idx < len(ai_labels):
+            label = ai_labels[order_idx]['label']
+        else:
+            label = format_topic_label(keywords)
+        
         word_count = sum(documents[idx].word_count for idx in doc_indices)
         message_count = sum(documents[idx].message_count for idx in doc_indices)
         sentiment_total = sum(documents[idx].sentiment * documents[idx].message_count for idx in doc_indices)
@@ -567,18 +806,28 @@ def estimate_topics(conversations: Sequence[NormalizedConversation]) -> Tuple[Li
         if breakdown:
             topic_series.append({'week': week, 'breakdown': breakdown})
 
-    return topics, topic_series
+    mapping: Dict[str, str] = {}
+    for doc_index, cluster_index in enumerate(assignments):
+        key = cluster_index if populated_vectors else 0
+        topic = cluster_meta.get(key)
+        if topic:
+            mapping[documents[doc_index].conversation_id] = topic['topic_id']
+
+    return topics, topic_series, mapping
 
 
-def build_conversation_summaries(conversations: Sequence[NormalizedConversation], limit: int = 100) -> List[Dict[str, Any]]:
+def build_conversation_summaries(conversations: Sequence[NormalizedConversation], mapping: Dict[str, str] = None, limit: int = 100) -> List[Dict[str, Any]]:
     items = []
     for conversation in conversations:
-        items.append({
+        summary = {
             'conversation_id': conversation.id,
             'title': conversation.title,
             'messages': len(conversation.messages),
             'start': datetime.utcfromtimestamp(conversation.created_at).strftime('%Y-%m-%d')
-        })
+        }
+        if mapping and conversation.id in mapping:
+            summary['topic_id'] = mapping[conversation.id]
+        items.append(summary)
     items.sort(key=lambda entry: entry['messages'], reverse=True)
     return items[:limit]
 
@@ -601,12 +850,15 @@ def compute_totals(conversations: Sequence[NormalizedConversation]) -> Dict[str,
     return stats
 
 
-def compute_summary(conversations: Sequence[NormalizedConversation]) -> Dict[str, Any]:
+def compute_summary(
+    conversations: Sequence[NormalizedConversation],
+    openai_client: Optional[Any] = None
+) -> Dict[str, Any]:
     activity = compute_daily(conversations)
     totals = compute_totals(conversations)
     top_hour = compute_top_hour(conversations)
     streak = compute_longest_streak(activity)
-    topics, topic_series = estimate_topics(conversations)
+    topics, topic_series, mapping = estimate_topics(conversations, openai_client)
     modes = compute_mode_breakdown(conversations)
     start = activity[0]['date'] if activity else datetime.now(tz=timezone.utc).strftime('%Y-%m-%d')
     end = activity[-1]['date'] if activity else start
@@ -643,7 +895,7 @@ def compute_summary(conversations: Sequence[NormalizedConversation]) -> Dict[str
         'activity': activity,
         'topics': topics,
         'topicSeries': topic_series,
-        'conversations': build_conversation_summaries(conversations),
+        'conversations': build_conversation_summaries(conversations, mapping),
         'hours': compute_hour_histogram(conversations),
         'modeSeries': compute_mode_series(conversations)
     }
@@ -701,7 +953,24 @@ def write_json(path: Path, payload: Any) -> None:
         json.dump(payload, handle, indent=2)
 
 
-def run_etl(export_path: Path, output_dir: Path, start: str | None, end: str | None) -> None:
+def run_etl(
+    export_path: Path,
+    output_dir: Path,
+    start: str | None,
+    end: str | None,
+    openai_key: str | None = None
+) -> None:
+    openai_client = None
+    api_key = openai_key or os.environ.get('OPENAI_API_KEY')
+    
+    if api_key and OPENAI_AVAILABLE:
+        openai_client = OpenAI(api_key=api_key)
+        print("OpenAI API key found - will generate AI-powered topic labels")
+    elif api_key and not OPENAI_AVAILABLE:
+        print("Warning: OpenAI API key provided but 'openai' package not installed. Run: pip install openai")
+    else:
+        print("No OpenAI API key - using fallback topic labels (set OPENAI_API_KEY or use --openai-key)")
+    
     raw_conversations = list(iter_export_conversations(export_path))
     if not raw_conversations:
         raise RuntimeError('No conversations found. Did you pass the correct export path?')
@@ -709,7 +978,7 @@ def run_etl(export_path: Path, output_dir: Path, start: str | None, end: str | N
     normalized = filter_conversations_by_date(normalized, start, end)
     if not normalized:
         raise RuntimeError('Date filter excluded all conversations. Adjust --start-date/--end-date.')
-    results = compute_summary(normalized)
+    results = compute_summary(normalized, openai_client)
 
     write_json(output_dir / 'summary.json', results['summary'])
     write_json(output_dir / 'activity_timeseries.json', results['activity'])
@@ -728,6 +997,7 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     parser.add_argument('--out', default='apps/web/public/data', help='Directory for generated JSON files')
     parser.add_argument('--start-date', help='Optional inclusive start date (YYYY-MM-DD)')
     parser.add_argument('--end-date', help='Optional inclusive end date (YYYY-MM-DD)')
+    parser.add_argument('--openai-key', help='OpenAI API key for AI-powered topic labels (or set OPENAI_API_KEY env var)')
     return parser.parse_args(argv)
 
 
@@ -735,7 +1005,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     args = parse_args(argv or sys.argv[1:])
     export_path = Path(args.export).expanduser().resolve()
     output_dir = Path(args.out).expanduser().resolve()
-    run_etl(export_path, output_dir, args.start_date, args.end_date)
+    run_etl(export_path, output_dir, args.start_date, args.end_date, args.openai_key)
 
 
 if __name__ == '__main__':

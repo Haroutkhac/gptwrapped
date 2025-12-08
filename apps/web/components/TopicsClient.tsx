@@ -7,6 +7,8 @@ import {
   saveEmbeddingAnalysis,
   clearEmbeddingAnalysis,
   subscribeToEmbeddingAnalysis,
+  hasRawConversations as checkRawConversations,
+  loadRawConversations,
 } from "@/lib/storage";
 import {
   analyzeTopicsWithEmbeddings,
@@ -215,7 +217,8 @@ function ClusterRow({
 }
 
 export default function TopicsClient() {
-  const { data, hasImportedData } = useWrappedData();
+  const { data, hasImportedData, hydrated } = useWrappedData();
+  const isUnlocked = hydrated && hasImportedData;
   const [analysis, setAnalysis] = useState<TopicAnalysisResult | null>(null);
   const [analysisState, setAnalysisState] = useState<AnalysisState>({
     status: "idle",
@@ -245,14 +248,12 @@ export default function TopicsClient() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setHasRawConversations(
-        !!localStorage.getItem("chatgpt-wrapped-raw-conversations")
-      );
+      checkRawConversations().then(setHasRawConversations);
     }
   }, []);
 
   const handleAnalyze = useCallback(async () => {
-    if (!hasImportedData) return;
+    if (!isUnlocked) return;
 
     setAnalysisState({
       status: "loading",
@@ -261,14 +262,9 @@ export default function TopicsClient() {
     });
 
     try {
-      const storedRaw = localStorage.getItem(
-        "chatgpt-wrapped-raw-conversations"
-      );
-      let conversations;
+      const conversations = await loadRawConversations();
 
-      if (storedRaw) {
-        conversations = JSON.parse(storedRaw);
-      } else {
+      if (!conversations) {
         setAnalysisState({
           status: "error",
           progress: 0,
@@ -303,7 +299,7 @@ export default function TopicsClient() {
         error: error instanceof Error ? error.message : "Analysis failed",
       });
     }
-  }, [hasImportedData]);
+  }, [isUnlocked]);
 
   const handleClear = useCallback(() => {
     clearEmbeddingAnalysis();
@@ -322,7 +318,7 @@ export default function TopicsClient() {
     return analysis.clusters.find((c) => c.clusterId === activeCluster) || null;
   }, [analysis, activeCluster]);
 
-  if (!hasImportedData) {
+  if (!isUnlocked) {
     return (
       <div className="flex flex-col items-center justify-center h-full p-8 text-center">
         <div className="w-24 h-24 bg-[#282828] rounded-full flex items-center justify-center mb-6">

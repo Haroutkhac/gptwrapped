@@ -25,7 +25,8 @@ export const sampleData: WrappedData = {
       ],
       right_count: 15,
       stupid_question_count: 124,
-      weirdest_request: "Can you explain the difference between useEffect and useLayoutEffect but like I'm a 5 year old pirate?",
+      weirdest_request:
+        "Can you explain the difference between useEffect and useLayoutEffect but like I'm a 5 year old pirate?",
       active_days: 280,
       period_days: 366,
       user_words_pct: 0.45,

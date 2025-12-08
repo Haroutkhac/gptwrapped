@@ -2,8 +2,21 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useWrappedData } from "@/components/DataProvider";
-import { X, ChevronUp, ChevronDown, Brain, CheckCircle, Type, Hash, AlertTriangle, Sparkles, Share2, Download } from "lucide-react";
-import { toPng } from 'html-to-image';
+import {
+  X,
+  ChevronUp,
+  ChevronDown,
+  Brain,
+  CheckCircle,
+  Type,
+  Hash,
+  AlertTriangle,
+  Sparkles,
+  Share2,
+  Download,
+  Moon,
+} from "lucide-react";
+import { toPng } from "html-to-image";
 
 interface WrappedStoryProps {
   onClose: () => void;
@@ -12,21 +25,21 @@ interface WrappedStoryProps {
 export default function WrappedStory({ onClose }: WrappedStoryProps) {
   const { data } = useWrappedData();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 6;
+  const totalSlides = 7;
   const slideRef = useRef<HTMLDivElement>(null);
 
-  const handleExport = async (action: 'download' | 'share') => {
+  const handleExport = async (action: "download" | "share") => {
     if (slideRef.current) {
       try {
         const dataUrl = await toPng(slideRef.current, {
           cacheBust: true,
           style: {
-            transform: 'scale(1)', // Ensure proper scaling
-          }
+            transform: "scale(1)", // Ensure proper scaling
+          },
         });
-        
-        if (action === 'download') {
-          const link = document.createElement('a');
+
+        if (action === "download") {
+          const link = document.createElement("a");
           link.download = `gpt-wrapped-2025-slide-${currentSlide + 1}.png`;
           link.href = dataUrl;
           link.click();
@@ -34,10 +47,13 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
           // For now, open Twitter/X compose with the text (image attachment not supported via web intent)
           // Ideally, you'd upload the image to a server and get a URL, or use the native sharing API if supported
           const text = `Check out my #GPTWrapped2025!`;
-          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+          window.open(
+            `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
+            "_blank"
+          );
         }
       } catch (err) {
-        console.error('Failed to export image', err);
+        console.error("Failed to export image", err);
       }
     }
   };
@@ -102,13 +118,12 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         You asked ChatGPT
         <br />
         <span className="text-blue-400 text-8xl block my-4">
-          {data.summary.totals.messages.toLocaleString()}
+          {(
+            data.summary.totals.userMessages ?? data.summary.totals.messages
+          ).toLocaleString()}
         </span>
         questions
       </h2>
-      <p className="text-xl md:text-2xl text-blue-100 max-w-2xl font-light">
-        ...when you probably could have just thought about it for a second.
-      </p>
     </div>
   );
 
@@ -164,7 +179,8 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
             </span>
           </div>
         ))}
-        {(!data.summary.fun.top_words || data.summary.fun.top_words.length === 0) && (
+        {(!data.summary.fun.top_words ||
+          data.summary.fun.top_words.length === 0) && (
           <p className="text-white/50">Not enough words to analyze yet.</p>
         )}
       </div>
@@ -189,7 +205,9 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         Stupid Questions
       </h3>
       <p className="text-xl text-yellow-100 max-w-2xl font-medium bg-yellow-900/30 p-4 rounded-lg">
-        That puts you in the top <span className="font-black text-yellow-400">0.001%</span> of users who clearly didn't want to Google it.
+        That puts you in the top{" "}
+        <span className="font-black text-yellow-400">0.001%</span> of users who
+        clearly didn't want to Google it.
       </p>
     </div>
   );
@@ -205,7 +223,10 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
       </h2>
       <div className="bg-white/10 p-8 rounded-2xl backdrop-blur-md max-w-3xl shadow-xl border border-white/10">
         <p className="text-xl md:text-3xl font-serif italic text-indigo-100 leading-relaxed">
-          "{data.summary.fun.weirdest_request || "No weird requests found (boring!)"}"
+          "
+          {data.summary.fun.weirdest_request ||
+            "No weird requests found (boring!)"}
+          "
         </p>
       </div>
       <p className="text-indigo-300 mt-8 text-lg">
@@ -221,7 +242,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         <CheckCircle size={64} className="text-white" />
       </div>
       <h2 className="text-4xl md:text-6xl font-black text-white mb-8">
-        But hey, you were right!
+        But hey, you were absolutely right!
       </h2>
       <div className="relative">
         <span className="text-green-400 text-9xl font-black block mb-4">
@@ -237,30 +258,63 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
     </div>
   );
 
+  // Slide 7: Late Night Owl
+  const Slide7 = () => (
+    <div className="flex flex-col items-center justify-center h-full p-8 text-center animate-fade-in">
+      <div className="mb-8 p-6 bg-slate-700 rounded-full shadow-2xl shadow-slate-900/50">
+        <Moon size={64} className="text-yellow-200" />
+      </div>
+      <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
+        Night Owl Alert 🦉
+      </h2>
+      <div className="relative mb-8">
+        <span className="text-yellow-300 text-9xl font-black block">
+          {data.summary.fun.late_night_count ?? 0}
+        </span>
+      </div>
+      <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+        messages sent after midnight
+      </h3>
+      <p className="text-xl text-slate-300 max-w-2xl font-light">
+        Sleep is overrated when you have an AI that never judges your 3am
+        existential crises.
+      </p>
+    </div>
+  );
+
   const getBackgroundColor = (slide: number) => {
     switch (slide) {
-      case 0: return '#1e3a8a'; // blue-900
-      case 1: return '#db2777'; // pink-600
-      case 2: return '#581c87'; // purple-900
-      case 3: return '#ca8a04'; // yellow-600
-      case 4: return '#4338ca'; // indigo-700
-      case 5: return '#14532d'; // green-900
-      default: return '#000000';
+      case 0:
+        return "#1e3a8a"; // blue-900
+      case 1:
+        return "#db2777"; // pink-600
+      case 2:
+        return "#581c87"; // purple-900
+      case 3:
+        return "#ca8a04"; // yellow-600
+      case 4:
+        return "#4338ca"; // indigo-700
+      case 5:
+        return "#14532d"; // green-900
+      case 6:
+        return "#1e293b"; // slate-800
+      default:
+        return "#000000";
     }
   };
 
   return (
     <div className="fixed inset-0 z-[100] bg-black text-white overflow-hidden">
       <ProgressBar />
-      
-      <button 
+
+      <button
         onClick={onClose}
         className="absolute top-6 right-6 z-50 p-2 bg-black/20 hover:bg-black/40 rounded-full transition-colors"
       >
         <X size={24} />
       </button>
 
-      <div 
+      <div
         ref={slideRef}
         className="h-full w-full transition-colors duration-700 ease-in-out flex items-center justify-center"
         style={{ backgroundColor: getBackgroundColor(currentSlide) }}
@@ -271,7 +325,8 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         {currentSlide === 3 && <Slide4 />}
         {currentSlide === 4 && <Slide5 />}
         {currentSlide === 5 && <Slide6 />}
-        
+        {currentSlide === 6 && <Slide7 />}
+
         {/* Watermark for exported images */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/30 text-sm font-medium opacity-0 data-[html2canvas-ignore]:opacity-0 print:opacity-100">
           GPT Wrapped 2025
@@ -280,14 +335,14 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
 
       <div className="absolute bottom-8 left-8 flex gap-4 z-50">
         <button
-          onClick={() => handleExport('share')}
+          onClick={() => handleExport("share")}
           className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors backdrop-blur-sm"
         >
           <Share2 size={18} />
           <span className="text-sm font-medium">Share</span>
         </button>
         <button
-          onClick={() => handleExport('download')}
+          onClick={() => handleExport("download")}
           className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors backdrop-blur-sm"
         >
           <Download size={18} />
@@ -296,14 +351,14 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
       </div>
 
       <div className="absolute bottom-8 right-8 flex flex-col gap-2 z-50 opacity-50 hover:opacity-100 transition-opacity">
-        <button 
+        <button
           onClick={prevSlide}
           disabled={currentSlide === 0}
           className="p-2 bg-white/10 rounded-full hover:bg-white/20 disabled:opacity-0 transition-all"
         >
           <ChevronUp size={24} />
         </button>
-        <button 
+        <button
           onClick={nextSlide}
           className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-all"
         >

@@ -1,122 +1,167 @@
 [
   {
-    "topic_id": "cluster-3",
-    "label": "Data & Api",
-    "size": 298015,
-    "color": "#facc15",
-    "sentiment": -0.0,
-    "messages": 1583,
-    "keywords": [
-      "data",
-      "api",
-      "const",
-      "like",
-      "how"
-    ]
-  },
-  {
-    "topic_id": "cluster-2",
-    "label": "Cite & Like",
-    "size": 92503,
-    "color": "#22d3ee",
-    "sentiment": 0.001,
-    "messages": 746,
-    "keywords": [
-      "cite",
-      "like",
-      "use",
-      "new",
-      "free"
-    ]
-  },
-  {
     "topic_id": "cluster-1",
-    "label": "Self & Return",
-    "size": 91960,
+    "label": "Web Development and Architecture",
+    "size": 102142,
     "color": "#f472b6",
     "sentiment": 0.0,
-    "messages": 873,
+    "messages": 879,
     "keywords": [
-      "self",
-      "return",
-      "not",
-      "path",
-      "list"
-    ]
-  },
-  {
-    "topic_id": "cluster-0",
-    "label": "Speaker & Like",
-    "size": 77709,
-    "color": "#8b5cf6",
-    "sentiment": 0.002,
-    "messages": 1083,
-    "keywords": [
-      "speaker",
-      "like",
-      "then",
-      "it's",
-      "yeah"
-    ]
-  },
-  {
-    "topic_id": "cluster-5",
-    "label": "Color & White",
-    "size": 27956,
-    "color": "#f97316",
-    "sentiment": 0.0,
-    "messages": 264,
-    "keywords": [
-      "color",
-      "white",
-      "light",
-      "background",
-      "text"
-    ]
-  },
-  {
-    "topic_id": "cluster-6",
-    "label": "More & Like",
-    "size": 24927,
-    "color": "#2dd4bf",
-    "sentiment": 0.001,
-    "messages": 368,
-    "keywords": [
-      "more",
-      "like",
-      "protein",
-      "want",
-      "not"
-    ]
-  },
-  {
-    "topic_id": "cluster-7",
-    "label": "000 & Frac",
-    "size": 14750,
-    "color": "#c084fc",
-    "sentiment": -0.001,
-    "messages": 113,
-    "keywords": [
-      "000",
-      "frac",
-      "time",
-      "rate",
-      "lambda"
+      "cache",
+      "json",
+      "user",
+      "version",
+      "client"
     ]
   },
   {
     "topic_id": "cluster-4",
-    "label": "Not & Now",
-    "size": 4228,
+    "label": "Software Development and Career",
+    "size": 96220,
     "color": "#34d399",
-    "sentiment": 0.0,
-    "messages": 177,
+    "sentiment": -0.0,
+    "messages": 638,
     "keywords": [
-      "not",
-      "now",
-      "anything",
-      "end",
-      "turn"
+      "customer",
+      "batch",
+      "status",
+      "tenant",
+      "service"
+    ]
+  },
+  {
+    "topic_id": "cluster-9",
+    "label": "Algorithm Analysis and Python Coding",
+    "size": 63844,
+    "color": "#8b5cf6",
+    "sentiment": 0.001,
+    "messages": 855,
+    "keywords": [
+      "python",
+      "nums",
+      "model",
+      "len",
+      "left"
+    ]
+  },
+  {
+    "topic_id": "cluster-2",
+    "label": "Diverse Information Queries",
+    "size": 56633,
+    "color": "#22d3ee",
+    "sentiment": 0.001,
+    "messages": 503,
+    "keywords": [
+      "free",
+      "usd",
+      "cost",
+      "cad",
+      "day"
+    ]
+  },
+  {
+    "topic_id": "cluster-0",
+    "label": "AI Development and Communication",
+    "size": 36346,
+    "color": "#8b5cf6",
+    "sentiment": 0.002,
+    "messages": 792,
+    "keywords": [
+      "it's",
+      "you're",
+      "that's",
+      "don't",
+      "i'm"
+    ]
+  },
+  {
+    "topic_id": "cluster-3",
+    "label": "Distributed Systems Design",
+    "size": 33546,
+    "color": "#facc15",
+    "sentiment": 0.0,
+    "messages": 382,
+    "keywords": [
+      "schema",
+      "errors",
+      "errs",
+      "required",
+      "append"
+    ]
+  },
+  {
+    "topic_id": "cluster-5",
+    "label": "Diverse Practical Topics",
+    "size": 30592,
+    "color": "#f97316",
+    "sentiment": 0.0,
+    "messages": 334,
+    "keywords": [
+      "color",
+      "tag",
+      "white",
+      "tags",
+      "light"
+    ]
+  },
+  {
+    "topic_id": "cluster-10",
+    "label": "Data Analysis and Estimations",
+    "size": 13292,
+    "color": "#f472b6",
+    "sentiment": 0.0,
+    "messages": 165,
+    "keywords": [
+      "tax",
+      "business",
+      "income",
+      "home",
+      "rate"
+    ]
+  },
+  {
+    "topic_id": "cluster-6",
+    "label": "Language and Communication",
+    "size": 12759,
+    "color": "#2dd4bf",
+    "sentiment": 0.001,
+    "messages": 347,
+    "keywords": [
+      "water",
+      "eat",
+      "english",
+      "desu",
+      "salt"
+    ]
+  },
+  {
+    "topic_id": "cluster-7",
+    "label": "Mathematical Modeling and Analysis",
+    "size": 5170,
+    "color": "#c084fc",
+    "sentiment": -0.001,
+    "messages": 101,
+    "keywords": [
+      "rate",
+      "service",
+      "average",
+      "queue",
+      "jobs"
+    ]
+  },
+  {
+    "topic_id": "cluster-8",
+    "label": "Image Editing Requests",
+    "size": 2984,
+    "color": "#fb7185",
+    "sentiment": 0.0,
+    "messages": 211,
+    "keywords": [
+      "image",
+      "images",
+      "prompt",
+      "referenced_image_ids",
+      "size"
     ]
   }
 ]

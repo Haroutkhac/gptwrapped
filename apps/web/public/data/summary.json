@@ -13,16 +13,16 @@
   "longest_streak_days": 57,
   "top_topics": [
     {
-      "label": "Data & Api",
-      "pct": 0.31098883209744105
+      "label": "Web Development and Architecture",
+      "pct": 0.1065886659668031
     },
     {
-      "label": "Cite & Like",
-      "pct": 0.09653004021780645
+      "label": "Software Development and Career",
+      "pct": 0.10040885668310581
     },
     {
-      "label": "Self & Return",
-      "pct": 0.0959634011700105
+      "label": "Algorithm Analysis and Python Coding",
+      "pct": 0.06662339478358145
     }
   ],
   "modes": [
@@ -55,8 +55,8 @@
     "novel_pages": 3833,
     "avg_words_per_day": 4965,
     "top_keyword": {
-      "term": "speaker",
-      "count": 3314
+      "term": "user",
+      "count": 1301
     },
     "active_days": 193,
     "period_days": 598,
