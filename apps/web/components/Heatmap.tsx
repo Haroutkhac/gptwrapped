@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { clsx } from 'clsx';
-import { useState } from 'react';
+import { clsx } from "clsx";
+import { useState } from "react";
 
 interface HeatPoint {
   date: string;
@@ -16,20 +16,29 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 
 function clipIso(date: Date) {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
 
 function formatDate(iso: string) {
   const date = new Date(`${iso}T00:00:00`);
-  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 export default function Heatmap({ points }: HeatmapProps) {
-  const [tooltip, setTooltip] = useState<{ x: number; y: number; content: string } | null>(null);
+  const [tooltip, setTooltip] = useState<{
+    x: number;
+    y: number;
+    content: string;
+  } | null>(null);
 
-  if (!points.length) return <p className="text-[#B3B3B3]">No activity recorded.</p>;
+  if (!points.length)
+    return <p className="text-[#B3B3B3]">No activity recorded.</p>;
 
   const sorted = [...points].sort((a, b) => a.date.localeCompare(b.date));
   const dataStart = new Date(`${sorted[0].date}T00:00:00`);
@@ -38,7 +47,8 @@ export default function Heatmap({ points }: HeatmapProps) {
   const start = new Date(dataStart);
   start.setDate(start.getDate() - start.getDay());
 
-  const totalDays = Math.round((dataEnd.getTime() - start.getTime()) / DAY_MS) + 1;
+  const totalDays =
+    Math.round((dataEnd.getTime() - start.getTime()) / DAY_MS) + 1;
   const totalSlots = Math.ceil(totalDays / 7) * 7;
 
   const lookup = new Map(sorted.map((point) => [point.date, point.value]));
@@ -54,14 +64,21 @@ export default function Heatmap({ points }: HeatmapProps) {
 
   const weeks = totalSlots / 7;
 
-  const handleMouseEnter = (e: React.MouseEvent, cell: { iso: string; value: number }) => {
+  const handleMouseEnter = (
+    e: React.MouseEvent,
+    cell: { iso: string; value: number }
+  ) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const parentRect = e.currentTarget.closest('.heatmap-container')?.getBoundingClientRect();
+    const parentRect = e.currentTarget
+      .closest(".heatmap-container")
+      ?.getBoundingClientRect();
     if (parentRect) {
       setTooltip({
         x: rect.left - parentRect.left + rect.width / 2,
         y: rect.top - parentRect.top - 8,
-        content: `${formatDate(cell.iso)} • ${cell.value} message${cell.value !== 1 ? 's' : ''}`
+        content: `${formatDate(cell.iso)} • ${cell.value} message${
+          cell.value !== 1 ? "s" : ""
+        }`,
       });
     }
   };
@@ -74,32 +91,28 @@ export default function Heatmap({ points }: HeatmapProps) {
           style={{
             left: tooltip.x,
             top: tooltip.y,
-            transform: 'translate(-50%, -100%)',
-            zIndex: 9999
+            transform: "translate(-50%, -100%)",
+            zIndex: 9999,
           }}
         >
           {tooltip.content}
-          <div
-            className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#282828]"
-          />
+          <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#282828]" />
         </div>
       )}
       <div
         style={{
-          display: 'grid',
+          display: "grid",
           gridTemplateColumns: `repeat(${weeks}, minmax(0, 1fr))`,
-          gridTemplateRows: 'repeat(7, 1fr)',
-          gridAutoFlow: 'column',
-          gap: 'clamp(2px, 0.5vw, 4px)',
+          gridTemplateRows: "repeat(7, 1fr)",
+          gridAutoFlow: "column",
+          gap: "clamp(2px, 0.5vw, 4px)",
         }}
         className="w-full min-h-[100px] pb-1 min-w-0"
       >
         {cells.map((cell, index) => {
           const intensity = cell.value && maxValue ? cell.value / maxValue : 0;
-          const opacity = cell.value 
-             ? 0.3 + (intensity * 0.7) 
-             : 0.1;
-             
+          const opacity = cell.value ? 0.3 + intensity * 0.7 : 0.1;
+
           return (
             <div
               key={`${cell.iso}-${index}`}
@@ -110,7 +123,9 @@ export default function Heatmap({ points }: HeatmapProps) {
                 !cell.inRange && "opacity-25"
               )}
               style={{
-                backgroundColor: cell.value ? `rgba(29, 185, 84, ${opacity.toFixed(2)})` : 'rgba(255, 255, 255, 0.1)'
+                backgroundColor: cell.value
+                  ? `rgba(29, 185, 84, ${opacity.toFixed(2)})`
+                  : "rgba(255, 255, 255, 0.1)",
               }}
             />
           );

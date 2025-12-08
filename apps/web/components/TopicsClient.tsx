@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useWrappedData } from "@/components/DataProvider";
 import {
   loadEmbeddingAnalysis,
@@ -9,13 +10,21 @@ import {
   subscribeToEmbeddingAnalysis,
   hasRawConversations as checkRawConversations,
   loadRawConversations,
+  loadEmbeddingsEnabled,
+  saveEmbeddingsEnabled,
 } from "@/lib/storage";
 import {
   analyzeTopicsWithEmbeddings,
   type TopicAnalysisResult,
   type SemanticCluster,
 } from "@/lib/embeddings";
-import { MessageSquare, RefreshCw, Play, BrainCircuit } from "lucide-react";
+import {
+  MessageSquare,
+  RefreshCw,
+  Play,
+  BrainCircuit,
+  ExternalLink,
+} from "lucide-react";
 import { clsx } from "clsx";
 
 interface AnalysisState {
@@ -34,6 +43,15 @@ function SemanticMap({
   activeCluster: string | null;
   onSelectCluster: (id: string) => void;
 }) {
+  const [hoveredNode, setHoveredNode] = useState<{
+    id: string;
+    title: string;
+    x: number;
+    y: number;
+    color: string;
+  } | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+
   const clusterColors = useMemo(() => {
     const map = new Map<string, string>();
     for (const cluster of analysis.clusters) {
@@ -41,6 +59,14 @@ function SemanticMap({
     }
     return map;
   }, [analysis.clusters]);
+
+  const conversationTitles = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const emb of analysis.embeddings) {
+      map.set(emb.conversationId, emb.title);
+    }
+    return map;
+  }, [analysis.embeddings]);
 
   const clusterCentroids = useMemo(() => {
     const map = new Map<string, { x: number; y: number }>();
@@ -62,10 +88,29 @@ function SemanticMap({
     return map;
   }, [analysis.projections]);
 
+  const handleMouseEnter = useCallback(
+    (p: {
+      conversationId: string;
+      x: number;
+      y: number;
+      clusterId: string;
+    }) => {
+      const title = conversationTitles.get(p.conversationId) || "Untitled";
+      const color = clusterColors.get(p.clusterId) || "#666";
+      setHoveredNode({ id: p.conversationId, title, x: p.x, y: p.y, color });
+    },
+    [conversationTitles, clusterColors]
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    setHoveredNode(null);
+  }, []);
+
   return (
     <div className="w-full aspect-square bg-[#181818] rounded-lg border border-[#282828] overflow-hidden relative group">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none z-10" />
       <svg
+        ref={svgRef}
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid meet"
         className="w-full h-full"
@@ -76,7 +121,7 @@ function SemanticMap({
               key={`grad-${cluster.clusterId}`}
               id={`grad-${cluster.clusterId}`}
             >
-              <stop offset="0%" stopColor={cluster.color} stopOpacity="0.4" />
+              <stop offset="0%" stopColor={cluster.color} stopOpacity="0.3" />
               <stop offset="100%" stopColor={cluster.color} stopOpacity="0" />
             </radialGradient>
           ))}
@@ -93,9 +138,8 @@ function SemanticMap({
               y1={source.y}
               x2={target.x}
               y2={target.y}
-              stroke="rgba(255,255,255,0.1)"
-              strokeWidth={rel.similarity * 0.5}
-              strokeDasharray="1,1"
+              stroke="rgba(255,255,255,0.08)"
+              strokeWidth={rel.similarity * 0.3}
             />
           );
         })}
@@ -103,7 +147,7 @@ function SemanticMap({
         {analysis.clusters.map((cluster) => {
           const centroid = clusterCentroids.get(cluster.clusterId);
           if (!centroid) return null;
-          const radius = Math.sqrt(cluster.conversationIds.length) * 3 + 5;
+          const radius = Math.sqrt(cluster.conversationIds.length) * 4 + 8;
           return (
             <circle
               key={`bg-${cluster.clusterId}`}
@@ -111,49 +155,57 @@ function SemanticMap({
               cy={centroid.y}
               r={radius}
               fill={`url(#grad-${cluster.clusterId})`}
+              className="cursor-pointer"
+              onClick={() => onSelectCluster(cluster.clusterId)}
             />
           );
         })}
 
         {analysis.projections.map((p) => {
           const isActive = p.clusterId === activeCluster;
+          const isHovered = hoveredNode?.id === p.conversationId;
+          const color = clusterColors.get(p.clusterId) || "#666";
           return (
             <circle
               key={p.conversationId}
               cx={p.x}
               cy={p.y}
-              r={isActive ? 1 : 0.6}
-              fill={clusterColors.get(p.clusterId) || "#666"}
-              opacity={activeCluster ? (isActive ? 1 : 0.1) : 0.6}
-              className="transition-all duration-300"
+              r={isHovered ? 2.5 : isActive ? 1.8 : 1.2}
+              fill={color}
+              stroke={isHovered ? "#fff" : "transparent"}
+              strokeWidth={0.3}
+              opacity={activeCluster ? (isActive ? 0.9 : 0.15) : 0.7}
+              className="cursor-pointer transition-all duration-150"
+              onMouseEnter={() => handleMouseEnter(p)}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onSelectCluster(p.clusterId)}
             />
           );
         })}
-
-        {analysis.clusters.map((cluster) => {
-          const centroid = clusterCentroids.get(cluster.clusterId);
-          if (!centroid) return null;
-          const isActive = cluster.clusterId === activeCluster;
-          return (
-            <g
-              key={`label-${cluster.clusterId}`}
-              style={{ cursor: "pointer" }}
-              onClick={() => onSelectCluster(cluster.clusterId)}
-            >
-              <circle
-                cx={centroid.x}
-                cy={centroid.y}
-                r={isActive ? 2 : 1.5}
-                fill={cluster.color}
-                stroke={isActive ? "#fff" : "transparent"}
-                strokeWidth={0.2}
-              />
-            </g>
-          );
-        })}
       </svg>
-      <div className="absolute bottom-4 right-4 text-xs text-[#B3B3B3] pointer-events-none">
-        Semantic Map
+
+      {hoveredNode && (
+        <div
+          className="absolute z-20 pointer-events-none px-3 py-2 bg-[#282828] border border-[#404040] rounded-lg shadow-xl max-w-[200px] transform -translate-x-1/2"
+          style={{
+            left: `${hoveredNode.x}%`,
+            top: `${Math.max(hoveredNode.y - 8, 5)}%`,
+          }}
+        >
+          <div className="flex items-center gap-2 mb-1">
+            <span
+              className="w-2 h-2 rounded-full shrink-0"
+              style={{ backgroundColor: hoveredNode.color }}
+            />
+            <span className="text-white text-xs font-medium truncate">
+              {hoveredNode.title}
+            </span>
+          </div>
+        </div>
+      )}
+
+      <div className="absolute bottom-3 right-3 text-[10px] text-[#666] pointer-events-none">
+        Hover nodes to see titles
       </div>
     </div>
   );
@@ -163,12 +215,14 @@ function ClusterRow({
   cluster,
   isActive,
   onSelect,
+  onViewConversations,
   totalSize,
   index,
 }: {
   cluster: SemanticCluster;
   isActive: boolean;
   onSelect: () => void;
+  onViewConversations: () => void;
   totalSize: number;
   index: number;
 }) {
@@ -177,6 +231,7 @@ function ClusterRow({
   return (
     <div
       onClick={onSelect}
+      onDoubleClick={onViewConversations}
       className={clsx(
         "group grid grid-cols-[auto_1fr_auto] gap-4 px-4 py-3 rounded-md items-center cursor-pointer transition-colors",
         isActive ? "bg-[#ffffff1a]" : "hover:bg-[#ffffff1a]"
@@ -207,9 +262,17 @@ function ClusterRow({
       </div>
 
       <div className="flex items-center gap-4 text-sm text-[#B3B3B3] group-hover:text-white">
-        <span className="hidden sm:block">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onViewConversations();
+          }}
+          className="hidden sm:flex items-center gap-1 hover:text-[#1DB954] transition-colors"
+        >
           {cluster.conversationIds.length} convs
-        </span>
+          <ExternalLink size={12} />
+        </button>
+        <span className="sm:hidden">{cluster.conversationIds.length}</span>
         <span className="min-w-[4ch] text-right">{share}%</span>
       </div>
     </div>
@@ -218,6 +281,7 @@ function ClusterRow({
 
 export default function TopicsClient() {
   const { data, hasImportedData, hydrated } = useWrappedData();
+  const router = useRouter();
   const isUnlocked = hydrated && hasImportedData;
   const [analysis, setAnalysis] = useState<TopicAnalysisResult | null>(null);
   const [analysisState, setAnalysisState] = useState<AnalysisState>({
@@ -227,6 +291,23 @@ export default function TopicsClient() {
   });
   const [activeCluster, setActiveCluster] = useState<string | null>(null);
   const [hasRawConversations, setHasRawConversations] = useState(false);
+  const [embeddingsEnabled, setEmbeddingsEnabled] = useState(false);
+
+  useEffect(() => {
+    setEmbeddingsEnabled(loadEmbeddingsEnabled());
+  }, []);
+
+  const handleToggleEmbeddings = useCallback((enabled: boolean) => {
+    setEmbeddingsEnabled(enabled);
+    saveEmbeddingsEnabled(enabled);
+  }, []);
+
+  const navigateToTopicConversations = useCallback(
+    (clusterId: string) => {
+      router.push(`/explore/conversations?topic=${clusterId}`);
+    },
+    [router]
+  );
 
   useEffect(() => {
     const stored = loadEmbeddingAnalysis();
@@ -375,16 +456,39 @@ export default function TopicsClient() {
             )}
 
             {hasRawConversations ? (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4 items-center">
+                <label className="flex items-center gap-3 cursor-pointer select-none">
+                  <div className="relative">
+                    <input
+                      type="checkbox"
+                      checked={embeddingsEnabled}
+                      onChange={(e) => handleToggleEmbeddings(e.target.checked)}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-[#282828] rounded-full peer peer-checked:bg-[#1DB954] transition-colors" />
+                    <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5" />
+                  </div>
+                  <span className="text-white text-sm font-medium">
+                    Enable AI Topic Analysis
+                  </span>
+                </label>
+                <p className="text-xs text-[#B3B3B3] max-w-sm text-center">
+                  {embeddingsEnabled
+                    ? "Your conversation titles will be sent to OpenAI to generate embeddings for topic clustering."
+                    : "Toggle to allow requests to OpenAI's API for semantic analysis."}
+                </p>
                 <button
                   onClick={handleAnalyze}
-                  className="bg-[#1DB954] text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition-transform"
+                  disabled={!embeddingsEnabled}
+                  className={clsx(
+                    "font-bold py-3 px-8 rounded-full transition-all",
+                    embeddingsEnabled
+                      ? "bg-[#1DB954] text-black hover:scale-105"
+                      : "bg-[#282828] text-[#666] cursor-not-allowed"
+                  )}
                 >
                   Analyze Topics
                 </button>
-                <span className="text-xs text-[#B3B3B3] opacity-60">
-                  Requires OpenAI API Key
-                </span>
               </div>
             ) : (
               <p className="text-yellow-500">
@@ -398,8 +502,8 @@ export default function TopicsClient() {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex items-end gap-6 p-8 bg-gradient-to-b from-[#134e4a] to-[#121212]">
+    <div className="flex flex-col min-h-full overflow-y-auto">
+      <div className="flex items-end gap-6 p-8 bg-gradient-to-b from-[#134e4a] to-[#121212] shrink-0">
         <div className="w-52 h-52 shadow-2xl bg-gradient-to-br from-teal-500 to-emerald-700 flex items-center justify-center shrink-0 rounded-sm">
           <BrainCircuit size={80} className="text-white" />
         </div>
@@ -425,7 +529,7 @@ export default function TopicsClient() {
         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-8 p-8 overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8 pb-32">
         {/* Left: Map */}
         <div className="lg:col-span-1 flex flex-col gap-4">
           <h3 className="text-white font-bold text-xl">Semantic Map</h3>
@@ -435,7 +539,7 @@ export default function TopicsClient() {
             onSelectCluster={setActiveCluster}
           />
           {activeClusterData && (
-            <div className="bg-[#181818] p-6 rounded-lg border border-[#282828] flex-1 overflow-y-auto">
+            <div className="bg-[#181818] p-6 rounded-lg border border-[#282828]">
               <h4 className="text-[#1DB954] font-bold text-lg mb-2">
                 {activeClusterData.label}
               </h4>
@@ -452,24 +556,36 @@ export default function TopicsClient() {
                   </span>
                 ))}
               </div>
-              <div className="text-xs text-[#B3B3B3]">
+              <div className="text-xs text-[#B3B3B3] mb-4">
                 {activeClusterData.conversationIds.length} conversations •{" "}
                 {activeClusterData.messageCount} messages
               </div>
+              <button
+                onClick={() =>
+                  navigateToTopicConversations(activeClusterData.clusterId)
+                }
+                className="w-full bg-[#1DB954] text-black font-bold py-2 px-4 rounded-full hover:scale-105 transition-transform text-sm flex items-center justify-center gap-2"
+              >
+                View Conversations
+                <ExternalLink size={14} />
+              </button>
             </div>
           )}
         </div>
 
         {/* Right: List */}
-        <div className="lg:col-span-2 bg-[#121212] flex flex-col min-h-0">
+        <div className="lg:col-span-2 bg-[#121212] flex flex-col">
           <h3 className="text-white font-bold text-xl mb-4">Topics</h3>
-          <div className="flex-1 overflow-y-auto pr-2">
+          <div>
             {analysis.clusters.map((cluster, i) => (
               <ClusterRow
                 key={cluster.clusterId}
                 cluster={cluster}
                 isActive={cluster.clusterId === activeCluster}
                 onSelect={() => setActiveCluster(cluster.clusterId)}
+                onViewConversations={() =>
+                  navigateToTopicConversations(cluster.clusterId)
+                }
                 totalSize={totalSize}
                 index={i}
               />

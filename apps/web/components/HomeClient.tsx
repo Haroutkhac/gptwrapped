@@ -167,8 +167,23 @@ export default function HomeClient() {
                   : router.push("/import")
               }
               image={
-                <div className="w-full h-full bg-[#333] flex items-center justify-center">
-                  <span className="text-4xl">📊</span>
+                <div className="w-full h-full grid grid-cols-2 grid-rows-2 gap-0.5 bg-[#121212]">
+                  {data.topics.slice(0, 4).map((topic, i) => (
+                    <div
+                      key={topic.topic_id}
+                      className="flex items-center justify-center p-2 overflow-hidden"
+                      style={{ backgroundColor: topic.color }}
+                    >
+                      <span className="text-[10px] font-bold text-white text-center leading-tight drop-shadow-md line-clamp-2">
+                        {topic.label}
+                      </span>
+                    </div>
+                  ))}
+                  {data.topics.length === 0 && (
+                    <div className="col-span-2 row-span-2 flex items-center justify-center bg-[#333]">
+                      <span className="text-4xl">📊</span>
+                    </div>
+                  )}
                 </div>
               }
             />
@@ -222,11 +237,13 @@ export default function HomeClient() {
                     style={{
                       left: hourTooltipPos.x,
                       top: hourTooltipPos.y,
-                      transform: 'translate(-50%, -100%)',
-                      zIndex: 9999
+                      transform: "translate(-50%, -100%)",
+                      zIndex: 9999,
                     }}
                   >
-                    {hoveredHour}:00 - {hoveredHour + 1}:00 • {histogram[hoveredHour]?.messages || 0} message{histogram[hoveredHour]?.messages !== 1 ? 's' : ''}
+                    {hoveredHour}:00 - {hoveredHour + 1}:00 •{" "}
+                    {histogram[hoveredHour]?.messages || 0} message
+                    {histogram[hoveredHour]?.messages !== 1 ? "s" : ""}
                     <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#282828]" />
                   </div>
                 )}
@@ -236,11 +253,13 @@ export default function HomeClient() {
                     className="flex flex-col items-center gap-1 group cursor-pointer"
                     onMouseEnter={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
-                      const parentRect = e.currentTarget.closest('.hour-chart-container')?.getBoundingClientRect();
+                      const parentRect = e.currentTarget
+                        .closest(".hour-chart-container")
+                        ?.getBoundingClientRect();
                       if (parentRect) {
                         setHourTooltipPos({
                           x: rect.left - parentRect.left + rect.width / 2,
-                          y: rect.top - parentRect.top - 8
+                          y: rect.top - parentRect.top - 8,
                         });
                         setHoveredHour(bucket.hour);
                       }
@@ -321,12 +340,17 @@ export default function HomeClient() {
                   .map((day) => (
                     <SpotifyCard
                       key={day.date}
-                      title={new Date(day.date).toLocaleDateString(undefined, {
+                      title={new Date(
+                        day.date + "T00:00:00"
+                      ).toLocaleDateString(undefined, {
                         weekday: "short",
                         month: "short",
                         day: "numeric",
                       })}
                       description={`${day.messages} messages`}
+                      onClick={() =>
+                        router.push(`/explore/conversations?date=${day.date}`)
+                      }
                       image={
                         <div className="w-full h-full bg-neutral-900 flex items-center justify-center">
                           <div className="text-center">

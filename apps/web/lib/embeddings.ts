@@ -95,71 +95,103 @@ function normalizeEmbedding(emb: number[]): number[] {
   return emb.map((v) => v / norm);
 }
 
-interface AgglomerativeNode {
-  id: number;
-  indices: number[];
-  centroid: number[];
-}
-
-function agglomerativeClustering(
+function kMeansClustering(
   embeddings: number[][],
-  targetClusters: number
+  k: number,
+  maxIterations = 50
 ): number[] {
-  if (embeddings.length <= targetClusters) {
+  if (embeddings.length <= k) {
     return embeddings.map((_, i) => i);
   }
 
-  let nodes: AgglomerativeNode[] = embeddings.map((emb, i) => ({
-    id: i,
-    indices: [i],
-    centroid: [...emb],
-  }));
+  const n = embeddings.length;
+  const dim = embeddings[0].length;
 
-  while (nodes.length > targetClusters) {
-    let bestI = 0,
-      bestJ = 1,
-      bestSim = -Infinity;
+  const centroids: number[][] = [];
+  const usedIndices = new Set<number>();
+  centroids.push([...embeddings[0]]);
+  usedIndices.add(0);
 
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const sim = cosineSimilarity(nodes[i].centroid, nodes[j].centroid);
-        if (sim > bestSim) {
-          bestSim = sim;
-          bestI = i;
-          bestJ = j;
-        }
+  while (centroids.length < k) {
+    let bestIdx = -1;
+    let bestMinDist = -1;
+
+    for (let i = 0; i < n; i++) {
+      if (usedIndices.has(i)) continue;
+
+      let minDist = Infinity;
+      for (const centroid of centroids) {
+        const dist = 1 - cosineSimilarity(embeddings[i], centroid);
+        if (dist < minDist) minDist = dist;
+      }
+
+      if (minDist > bestMinDist) {
+        bestMinDist = minDist;
+        bestIdx = i;
       }
     }
 
-    const merged: AgglomerativeNode = {
-      id: nodes[bestI].id,
-      indices: [...nodes[bestI].indices, ...nodes[bestJ].indices],
-      centroid: averageEmbedding([
-        ...nodes[bestI].indices.map((i) => embeddings[i]),
-        ...nodes[bestJ].indices.map((i) => embeddings[i]),
-      ]),
-    };
-
-    nodes = nodes.filter((_, i) => i !== bestI && i !== bestJ);
-    nodes.push(merged);
+    if (bestIdx >= 0) {
+      centroids.push([...embeddings[bestIdx]]);
+      usedIndices.add(bestIdx);
+    } else {
+      break;
+    }
   }
 
-  const assignments = new Array(embeddings.length).fill(-1);
-  nodes.forEach((node, clusterIdx) => {
-    for (const i of node.indices) {
-      assignments[i] = clusterIdx;
+  let assignments = new Array(n).fill(0);
+
+  for (let iter = 0; iter < maxIterations; iter++) {
+    for (let i = 0; i < n; i++) {
+      let bestCluster = 0;
+      let bestSim = -Infinity;
+
+      for (let c = 0; c < centroids.length; c++) {
+        const sim = cosineSimilarity(embeddings[i], centroids[c]);
+        if (sim > bestSim) {
+          bestSim = sim;
+          bestCluster = c;
+        }
+      }
+      assignments[i] = bestCluster;
     }
-  });
+
+    const newCentroids: number[][] = [];
+    for (let c = 0; c < centroids.length; c++) {
+      const members = embeddings.filter((_, i) => assignments[i] === c);
+      if (members.length > 0) {
+        newCentroids.push(averageEmbedding(members));
+      } else {
+        newCentroids.push(centroids[c]);
+      }
+    }
+
+    let converged = true;
+    for (let c = 0; c < centroids.length; c++) {
+      if (cosineSimilarity(centroids[c], newCentroids[c]) < 0.9999) {
+        converged = false;
+        break;
+      }
+    }
+
+    for (let c = 0; c < centroids.length; c++) {
+      centroids[c] = newCentroids[c];
+    }
+
+    if (converged) break;
+  }
 
   return assignments;
 }
 
 function estimateClusterCount(n: number): number {
   if (n <= 3) return Math.max(1, n);
-  if (n <= 10) return Math.min(n, 4);
-  if (n <= 30) return Math.min(n, 6);
-  if (n <= 100) return Math.min(n, 8);
-  return Math.min(n, Math.floor(Math.sqrt(n)) + 2);
+  if (n <= 10) return Math.min(n, 3);
+  if (n <= 50) return Math.min(n, 5);
+  if (n <= 100) return Math.min(n, 7);
+  if (n <= 300) return Math.min(n, 10);
+  if (n <= 500) return Math.min(n, 12);
+  return Math.min(n, 15);
 }
 
 function pcaProjection(embeddings: number[][]): { x: number; y: number }[] {
@@ -504,7 +536,7 @@ export async function analyzeTopicsWithEmbeddings(
   onProgress?.(45, "Clustering conversations...");
 
   const targetClusters = estimateClusterCount(embeddings.length);
-  const assignments = agglomerativeClustering(allEmbeddings, targetClusters);
+  const assignments = kMeansClustering(allEmbeddings, targetClusters);
 
   const clusterMap = new Map<number, ConversationEmbedding[]>();
   for (let i = 0; i < embeddings.length; i++) {
