@@ -238,9 +238,11 @@ function getConversationText(conv: NormalizedConversation, maxLength = 2000): st
   return parts.join(' ').slice(0, maxLength);
 }
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
+
 async function fetchEmbeddings(texts: string[]): Promise<number[][]> {
   // eslint-disable-next-line no-restricted-globals
-  const response = await fetch('/api/embeddings', {
+  const response = await fetch(`${API_BASE_URL}/api/embeddings`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ texts })
@@ -259,7 +261,7 @@ async function fetchClusterLabels(
   clusters: { titles: string[]; keywords: string[] }[]
 ): Promise<{ label: string; description: string }[]> {
   // eslint-disable-next-line no-restricted-globals
-  const response = await fetch('/api/generate-labels', {
+  const response = await fetch(`${API_BASE_URL}/api/generate-labels`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ clusters })

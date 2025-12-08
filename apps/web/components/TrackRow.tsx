@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { clsx } from 'clsx';
+import { clsx } from "clsx";
 
 interface TrackRowProps {
   index: number;
@@ -13,9 +13,18 @@ interface TrackRowProps {
   isActive?: boolean;
 }
 
-export default function TrackRow({ index, title, subTitle, meta, endMeta, onClick, icon, isActive }: TrackRowProps) {
+export default function TrackRow({
+  index,
+  title,
+  subTitle,
+  meta,
+  endMeta,
+  onClick,
+  icon,
+  isActive,
+}: TrackRowProps) {
   return (
-    <div 
+    <div
       onClick={onClick}
       className={clsx(
         "group grid grid-cols-[auto_1fr_auto] gap-4 px-4 py-2 rounded-md hover:bg-[rgba(255,255,255,0.1)] items-center cursor-pointer transition-colors",
@@ -28,7 +37,12 @@ export default function TrackRow({ index, title, subTitle, meta, endMeta, onClic
       </div>
 
       <div className="flex flex-col min-w-0">
-        <div className={clsx("text-white text-base font-normal truncate", subTitle ? "" : "leading-tight")}>
+        <div
+          className={clsx(
+            "text-white text-base font-normal truncate",
+            subTitle ? "" : "leading-tight"
+          )}
+        >
           {title}
         </div>
         {subTitle && (
@@ -39,10 +53,11 @@ export default function TrackRow({ index, title, subTitle, meta, endMeta, onClic
       </div>
 
       <div className="flex items-center gap-8 text-sm text-[#B3B3B3] group-hover:text-white transition-colors">
-         {meta && <span className="hidden sm:block">{meta}</span>}
-         {endMeta && <span className="min-w-[4ch] text-right tabular-nums">{endMeta}</span>}
+        {meta && <span className="hidden sm:block">{meta}</span>}
+        {endMeta && (
+          <span className="min-w-[4ch] text-right tabular-nums">{endMeta}</span>
+        )}
       </div>
     </div>
   );
 }
-

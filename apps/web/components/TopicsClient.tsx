@@ -350,8 +350,8 @@ export default function TopicsClient() {
         </h2>
         <p className="text-[#B3B3B3] mb-8 max-w-lg">
           Use AI embeddings to discover meaningful topic clusters in your
-          conversations. This runs locally in your browser using OpenAI&apos;s API
-          (key required).
+          conversations. This runs locally in your browser using OpenAI&apos;s
+          API (key required).
         </p>
 
         {analysisState.status === "loading" ? (
