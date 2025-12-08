@@ -191,57 +191,54 @@ export default function HomeClient() {
           <h2 className="text-2xl font-bold text-white mb-4">
             Activity Overview
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-[#181818] rounded-lg p-6 border border-[#282828] relative overflow-hidden min-h-[280px]">
-              {!isUnlocked && <LockedOverlay />}
-              <h3 className="text-lg font-bold text-white mb-4">
-                Calendar Heatmap
-              </h3>
-              {isUnlocked && (
-                <Heatmap
-                  key={`${data.summary.period.start}-${data.summary.period.end}-${data.activity.length}`}
-                  points={data.activity.map((point) => ({
-                    date: point.date,
-                    value: point.messages,
-                  }))}
-                />
-              )}
-            </div>
+          <div className="bg-[#181818] rounded-lg p-6 border border-[#282828] relative overflow-hidden min-h-[280px]">
+            {!isUnlocked && <LockedOverlay />}
+            <h3 className="text-lg font-bold text-white mb-4">
+              Calendar Heatmap
+            </h3>
+            {isUnlocked && (
+              <Heatmap
+                key={`${data.summary.period.start}-${data.summary.period.end}-${data.activity.length}`}
+                points={data.activity.map((point) => ({
+                  date: point.date,
+                  value: point.messages,
+                }))}
+              />
+            )}
+          </div>
 
-            <div className="bg-[#181818] rounded-lg p-6 border border-[#282828] relative overflow-hidden min-h-[280px]">
-              {!isUnlocked && <LockedOverlay />}
-              <h3 className="text-lg font-bold text-white mb-4">
-                Messages by Hour
-              </h3>
-              {isUnlocked && (
-                <div className="flex flex-col gap-1 max-h-[300px] overflow-y-auto pr-2">
-                  {histogram.map((bucket) => (
+          <div className="bg-[#181818] rounded-lg p-6 border border-[#282828] relative overflow-hidden">
+            {!isUnlocked && <LockedOverlay />}
+            <h3 className="text-lg font-bold text-white mb-4">
+              Messages by Hour
+            </h3>
+            {isUnlocked && (
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-2">
+                {histogram.map((bucket) => (
+                  <div
+                    key={bucket.hour}
+                    className="flex flex-col items-center gap-1 group cursor-pointer"
+                  >
                     <div
-                      key={bucket.hour}
-                      className="flex items-center gap-3 group cursor-pointer"
+                      className="w-full h-16 bg-[#2a2a2a] rounded relative overflow-hidden flex items-end"
                     >
-                      <span className="text-xs text-[#B3B3B3] w-8 text-right">
-                        {bucket.hour}:00
-                      </span>
-                      <div className="flex-1 h-4 bg-[#2a2a2a] rounded relative overflow-hidden">
-                        <div
-                          className="absolute top-0 bottom-0 left-0 bg-[#1DB954] group-hover:bg-[#1ed760] transition-all duration-300 rounded"
-                          style={{
-                            width: `${Math.min(
-                              100,
-                              ((bucket.messages || 0) / maxMessages) * 100
-                            )}%`,
-                          }}
-                        />
-                      </div>
-                      <span className="text-xs text-[#B3B3B3] w-8">
-                        {bucket.messages}
-                      </span>
+                      <div
+                        className="w-full bg-[#1DB954] group-hover:bg-[#1ed760] transition-all duration-300 rounded-t"
+                        style={{
+                          height: `${Math.min(
+                            100,
+                            ((bucket.messages || 0) / maxMessages) * 100
+                          )}%`,
+                        }}
+                      />
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                    <span className="text-xs text-[#B3B3B3]">
+                      {bucket.hour}:00
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
