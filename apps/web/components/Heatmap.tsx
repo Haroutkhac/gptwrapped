@@ -1,6 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
+import { useState } from 'react';
 
 interface HeatPoint {
   date: string;
@@ -20,7 +21,14 @@ function clipIso(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
+function formatDate(iso: string) {
+  const date = new Date(`${iso}T00:00:00`);
+  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
 export default function Heatmap({ points }: HeatmapProps) {
+  const [tooltip, setTooltip] = useState<{ x: number; y: number; content: string } | null>(null);
+
   if (!points.length) return <p className="text-[#B3B3B3]">No activity recorded.</p>;
 
   const sorted = [...points].sort((a, b) => a.date.localeCompare(b.date));
@@ -46,8 +54,36 @@ export default function Heatmap({ points }: HeatmapProps) {
 
   const weeks = totalSlots / 7;
 
+  const handleMouseEnter = (e: React.MouseEvent, cell: { iso: string; value: number }) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const parentRect = e.currentTarget.closest('.heatmap-container')?.getBoundingClientRect();
+    if (parentRect) {
+      setTooltip({
+        x: rect.left - parentRect.left + rect.width / 2,
+        y: rect.top - parentRect.top - 8,
+        content: `${formatDate(cell.iso)} • ${cell.value} message${cell.value !== 1 ? 's' : ''}`
+      });
+    }
+  };
+
   return (
-    <div className="w-full overflow-hidden min-w-0">
+    <div className="w-full overflow-visible min-w-0 relative heatmap-container">
+      {tooltip && (
+        <div
+          className="absolute bg-[#282828] text-white text-xs px-3 py-2 rounded-lg shadow-xl border border-[#3e3e3e] whitespace-nowrap pointer-events-none"
+          style={{
+            left: tooltip.x,
+            top: tooltip.y,
+            transform: 'translate(-50%, -100%)',
+            zIndex: 9999
+          }}
+        >
+          {tooltip.content}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#282828]"
+          />
+        </div>
+      )}
       <div
         style={{
           display: 'grid',
@@ -60,20 +96,17 @@ export default function Heatmap({ points }: HeatmapProps) {
       >
         {cells.map((cell, index) => {
           const intensity = cell.value && maxValue ? cell.value / maxValue : 0;
-          // Spotify Green is roughly rgb(29, 185, 84)
-          // We want darker shades for lower activity
-          
-          // Helper to get opacity/alpha
           const opacity = cell.value 
              ? 0.3 + (intensity * 0.7) 
-             : 0.1; // Inactive day opacity
+             : 0.1;
              
           return (
             <div
               key={`${cell.iso}-${index}`}
-              title={`${cell.iso}${cell.value ? ` • ${cell.value} messages` : ' • No chats'}`}
+              onMouseEnter={(e) => handleMouseEnter(e, cell)}
+              onMouseLeave={() => setTooltip(null)}
               className={clsx(
-                "w-full h-full rounded-[2px] transition-all duration-200 hover:ring-1 hover:ring-white",
+                "w-full h-full rounded-[2px] transition-all duration-200 hover:ring-1 hover:ring-white cursor-pointer",
                 !cell.inRange && "opacity-25"
               )}
               style={{

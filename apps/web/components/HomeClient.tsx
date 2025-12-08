@@ -21,6 +21,8 @@ export default function HomeClient() {
   const { data, hasImportedData, hydrated } = useWrappedData();
   const router = useRouter();
   const [showStory, setShowStory] = useState(false);
+  const [hoveredHour, setHoveredHour] = useState<number | null>(null);
+  const [hourTooltipPos, setHourTooltipPos] = useState({ x: 0, y: 0 });
 
   const isUnlocked = hydrated && hasImportedData;
 
@@ -191,7 +193,7 @@ export default function HomeClient() {
           <h2 className="text-2xl font-bold text-white mb-4">
             Activity Overview
           </h2>
-          <div className="bg-[#181818] rounded-lg p-6 border border-[#282828] relative overflow-hidden min-h-[280px]">
+          <div className="bg-[#181818] rounded-lg p-6 border border-[#282828] relative overflow-visible min-h-[280px]">
             {!isUnlocked && <LockedOverlay />}
             <h3 className="text-lg font-bold text-white mb-4">
               Calendar Heatmap
@@ -207,21 +209,45 @@ export default function HomeClient() {
             )}
           </div>
 
-          <div className="bg-[#181818] rounded-lg p-6 border border-[#282828] relative overflow-hidden">
+          <div className="bg-[#181818] rounded-lg p-6 border border-[#282828] relative overflow-visible">
             {!isUnlocked && <LockedOverlay />}
             <h3 className="text-lg font-bold text-white mb-4">
               Messages by Hour
             </h3>
             {isUnlocked && (
-              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-2">
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-2 relative hour-chart-container">
+                {hoveredHour !== null && (
+                  <div
+                    className="absolute bg-[#282828] text-white text-xs px-3 py-2 rounded-lg shadow-xl border border-[#3e3e3e] whitespace-nowrap pointer-events-none"
+                    style={{
+                      left: hourTooltipPos.x,
+                      top: hourTooltipPos.y,
+                      transform: 'translate(-50%, -100%)',
+                      zIndex: 9999
+                    }}
+                  >
+                    {hoveredHour}:00 - {hoveredHour + 1}:00 • {histogram[hoveredHour]?.messages || 0} message{histogram[hoveredHour]?.messages !== 1 ? 's' : ''}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#282828]" />
+                  </div>
+                )}
                 {histogram.map((bucket) => (
                   <div
                     key={bucket.hour}
                     className="flex flex-col items-center gap-1 group cursor-pointer"
+                    onMouseEnter={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const parentRect = e.currentTarget.closest('.hour-chart-container')?.getBoundingClientRect();
+                      if (parentRect) {
+                        setHourTooltipPos({
+                          x: rect.left - parentRect.left + rect.width / 2,
+                          y: rect.top - parentRect.top - 8
+                        });
+                        setHoveredHour(bucket.hour);
+                      }
+                    }}
+                    onMouseLeave={() => setHoveredHour(null)}
                   >
-                    <div
-                      className="w-full h-16 bg-[#2a2a2a] rounded relative overflow-hidden flex items-end"
-                    >
+                    <div className="w-full h-16 bg-[#2a2a2a] rounded relative overflow-hidden flex items-end">
                       <div
                         className="w-full bg-[#1DB954] group-hover:bg-[#1ed760] transition-all duration-300 rounded-t"
                         style={{
