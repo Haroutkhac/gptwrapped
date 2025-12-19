@@ -15,6 +15,7 @@ import {
   Share2,
   Download,
   Moon,
+  Bot,
 } from "lucide-react";
 import { toPng } from "html-to-image";
 
@@ -25,8 +26,9 @@ interface WrappedStoryProps {
 export default function WrappedStory({ onClose }: WrappedStoryProps) {
   const { data } = useWrappedData();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 7;
+  const totalSlides = 8;
   const slideRef = useRef<HTMLDivElement>(null);
+  const ai = data.aiInsights;
 
   const handleExport = async (action: "download" | "share") => {
     if (slideRef.current) {
@@ -115,7 +117,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         <Brain size={64} className="text-white" />
       </div>
       <h2 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
-        You asked ChatGPT
+        {ai?.slideTexts.intro || "You asked ChatGPT"}
         <br />
         <span className="text-blue-400 text-8xl block my-4">
           {(
@@ -134,7 +136,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         <Hash size={64} className="text-white" />
       </div>
       <h2 className="text-3xl md:text-5xl font-bold text-white mb-12">
-        What you wouldn&apos;t stop talking about
+        {ai?.slideTexts.topics || "What you wouldn't stop talking about"}
       </h2>
       <div className="flex flex-col gap-4 w-full max-w-md">
         {data.summary.top_topics.slice(0, 3).map((topic, i) => (
@@ -162,7 +164,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         <Type size={64} className="text-white" />
       </div>
       <h2 className="text-3xl md:text-5xl font-bold text-white mb-12">
-        Your Vocabulary
+        {ai?.slideTexts.vocabulary || "Your Vocabulary"}
       </h2>
       <div className="flex flex-col gap-4 w-full max-w-md">
         {(data.summary.fun.top_words || []).map((word, i) => (
@@ -205,9 +207,12 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         Stupid Questions
       </h3>
       <p className="text-xl text-yellow-100 max-w-2xl font-medium bg-yellow-900/30 p-4 rounded-lg">
-        That puts you in the top{" "}
-        <span className="font-black text-yellow-400">0.001%</span> of users who
-        clearly didn&apos;t want to Google it.
+        {ai?.slideTexts.stupidQuestions || (
+          <>
+            That puts you in the top{" "}
+            <span className="font-black text-yellow-400">0.001%</span> of users
+          </>
+        )}
       </p>
     </div>
   );
@@ -230,7 +235,8 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         </p>
       </div>
       <p className="text-indigo-300 mt-8 text-lg">
-        We&apos;re not judging. Okay, maybe a little bit.
+        {ai?.slideTexts.weirdest ||
+          "We're not judging. Okay, maybe a little bit."}
       </p>
     </div>
   );
@@ -253,7 +259,8 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         </span>
       </div>
       <p className="text-xl md:text-2xl text-green-100 max-w-2xl mt-8 font-light">
-        At least that&apos;s what the AI told you to make you feel better.
+        {ai?.slideTexts.validation ||
+          "At least that's what the AI told you to make you feel better."}
       </p>
     </div>
   );
@@ -265,7 +272,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         <Moon size={64} className="text-yellow-200" />
       </div>
       <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
-        Night Owl Alert 🦉
+        {ai?.slideTexts.lateNight || "Night Owl Alert 🦉"}
       </h2>
       <div className="relative mb-8">
         <span className="text-yellow-300 text-9xl font-black block">
@@ -279,6 +286,36 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         Sleep is overrated when you have an AI that never judges your 3am
         existential crises.
       </p>
+    </div>
+  );
+
+  const Slide8 = () => (
+    <div className="flex flex-col items-center justify-center h-full p-8 text-center animate-fade-in">
+      <div className="mb-8 p-6 bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-full shadow-2xl shadow-violet-900/50">
+        <Bot size={64} className="text-white" />
+      </div>
+      <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+        Your AI Profile
+      </h2>
+      {ai ? (
+        <>
+          <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-md max-w-2xl shadow-xl border border-white/10 mb-6">
+            <p className="text-lg md:text-xl text-violet-100 leading-relaxed">
+              {ai.personality}
+            </p>
+          </div>
+          <div className="bg-gradient-to-r from-fuchsia-900/50 to-violet-900/50 p-4 rounded-xl max-w-xl">
+            <p className="text-md md:text-lg text-fuchsia-200 italic">
+              &ldquo;{ai.roast}&rdquo;
+            </p>
+          </div>
+          <p className="text-violet-300 mt-6 text-sm max-w-md">{ai.summary}</p>
+        </>
+      ) : (
+        <p className="text-white/50 text-lg">
+          AI insights not available. Try re-importing your data.
+        </p>
+      )}
     </div>
   );
 
@@ -298,6 +335,8 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         return "#14532d"; // green-900
       case 6:
         return "#1e293b"; // slate-800
+      case 7:
+        return "#581c87"; // violet-900
       default:
         return "#000000";
     }
@@ -326,6 +365,7 @@ export default function WrappedStory({ onClose }: WrappedStoryProps) {
         {currentSlide === 4 && <Slide5 />}
         {currentSlide === 5 && <Slide6 />}
         {currentSlide === 6 && <Slide7 />}
+        {currentSlide === 7 && <Slide8 />}
 
         {/* Watermark for exported images */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/30 text-sm font-medium opacity-0 data-[html2canvas-ignore]:opacity-0 print:opacity-100">

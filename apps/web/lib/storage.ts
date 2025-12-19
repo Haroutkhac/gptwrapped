@@ -1,4 +1,5 @@
 import type { Topic, WrappedData } from "@/types/data";
+import type { AIInsights } from "@/types/insights";
 import type { TopicAnalysisResult } from "./embeddings";
 import type { NormalizedConversation } from "./analytics";
 
@@ -7,10 +8,12 @@ export const TOPIC_OVERRIDES_KEY = "chatgpt-wrapped-topic-overrides";
 export const EMBEDDING_ANALYSIS_KEY = "chatgpt-wrapped-embedding-analysis";
 export const RAW_CONVERSATIONS_KEY = "chatgpt-wrapped-raw-conversations";
 export const EMBEDDINGS_ENABLED_KEY = "chatgpt-wrapped-embeddings-enabled";
+export const AI_INSIGHTS_KEY = "chatgpt-wrapped-ai-insights";
 export const STORAGE_EVENT = "chatgpt-wrapped:data-updated";
 export const TOPIC_OVERRIDES_EVENT = "chatgpt-wrapped:topics-updated";
 export const EMBEDDING_ANALYSIS_EVENT =
   "chatgpt-wrapped:embedding-analysis-updated";
+export const AI_INSIGHTS_EVENT = "chatgpt-wrapped:ai-insights-updated";
 
 const IDB_NAME = "chatgpt-wrapped-db";
 const IDB_VERSION = 1;
@@ -242,4 +245,44 @@ export function saveEmbeddingsEnabled(enabled: boolean) {
     EMBEDDINGS_ENABLED_KEY,
     enabled ? "true" : "false"
   );
+}
+
+export function saveAIInsights(insights: AIInsights) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(AI_INSIGHTS_KEY, JSON.stringify(insights));
+  window.dispatchEvent(
+    new CustomEvent(AI_INSIGHTS_EVENT, { detail: insights })
+  );
+}
+
+export function loadAIInsights(): AIInsights | null {
+  if (typeof window === "undefined") return null;
+  const raw = window.localStorage.getItem(AI_INSIGHTS_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as AIInsights;
+  } catch (error) {
+    console.warn("Failed to parse AI insights", error);
+    return null;
+  }
+}
+
+export function clearAIInsights() {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(AI_INSIGHTS_KEY);
+  window.dispatchEvent(new CustomEvent(AI_INSIGHTS_EVENT, { detail: null }));
+}
+
+export function subscribeToAIInsights(
+  callback: (insights: AIInsights | null) => void
+) {
+  if (typeof window === "undefined") return () => {};
+  const handler = (event: Event) => {
+    const custom = event as CustomEvent<AIInsights | null>;
+    callback(custom.detail ?? loadAIInsights());
+  };
+  window.addEventListener(AI_INSIGHTS_EVENT, handler as EventListener);
+  return () => {
+    window.removeEventListener(AI_INSIGHTS_EVENT, handler as EventListener);
+  };
 }

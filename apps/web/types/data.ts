@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { AIInsights } from "./insights";
 
 export const periodSchema = z.object({
   start: z.string(),
@@ -125,4 +126,5 @@ export interface WrappedData {
   conversations: ConversationSummary[];
   hours?: HourBucket[];
   modeSeries?: ModeSeriesPoint[];
+  aiInsights?: AIInsights;
 }

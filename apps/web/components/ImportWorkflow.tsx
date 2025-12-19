@@ -16,7 +16,14 @@ import {
   saveWrappedData,
   saveRawConversations,
   clearRawConversations,
+  saveAIInsights,
+  clearAIInsights,
 } from "@/lib/storage";
+import {
+  initEngine,
+  generateAllInsights,
+  extractInsightStats,
+} from "@/lib/webllm";
 import type { WrappedData } from "@/types/data";
 import {
   Settings,
@@ -24,6 +31,7 @@ import {
   Upload,
   CheckCircle2,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -84,7 +92,7 @@ function ImportGuide() {
 
 export default function ImportWorkflow() {
   const [status, setStatus] = useState<
-    "idle" | "processing" | "ready" | "error"
+    "idle" | "processing" | "generating-ai" | "ready" | "error"
   >("idle");
   const [preview, setPreview] = useState<WrappedData | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -99,14 +107,19 @@ export default function ImportWorkflow() {
     start: string;
     end: string;
   } | null>(null);
+  const [aiProgress, setAiProgress] = useState<string>("");
+  const [modelProgress, setModelProgress] = useState<number>(0);
 
   const handleFiles = async (files: File[]) => {
     setStatus("processing");
     setError(null);
     setWarning(null);
+    setAiProgress("");
+    setModelProgress(0);
 
     clearStoredWrappedData();
     clearEmbeddingAnalysis();
+    clearAIInsights();
     await clearRawConversations();
 
     try {
@@ -135,6 +148,32 @@ export default function ImportWorkflow() {
       };
       setRange(period);
       setDefaultRange(period);
+
+      setStatus("generating-ai");
+      setAiProgress("Loading AI model (first time may take a minute)...");
+
+      try {
+        await initEngine((progress) => {
+          setModelProgress(progress.progress);
+          setAiProgress(progress.text);
+        });
+
+        const stats = extractInsightStats(result);
+        const insights = await generateAllInsights(stats, (step) => {
+          setAiProgress(step);
+        });
+
+        saveAIInsights(insights);
+        const updatedResult = { ...result, aiInsights: insights };
+        saveWrappedData(updatedResult);
+        setPreview(updatedResult);
+      } catch (aiErr) {
+        console.warn("AI insight generation failed:", aiErr);
+        setWarning(
+          "AI insights could not be generated. Your browser may not support WebGPU. Basic analytics will still work."
+        );
+      }
+
       setStatus("ready");
       setError(null);
     } catch (err) {
@@ -225,17 +264,39 @@ export default function ImportWorkflow() {
               Processing locally…
             </p>
           )}
+          {status === "generating-ai" && (
+            <div className="mt-4 space-y-2">
+              <p className="text-[#B3B3B3] flex items-center gap-2">
+                <Sparkles size={16} className="text-[#1DB954] animate-pulse" />
+                {aiProgress}
+              </p>
+              {modelProgress > 0 && modelProgress < 1 && (
+                <div className="w-full bg-[#282828] rounded-full h-2 overflow-hidden">
+                  <div
+                    className="bg-[#1DB954] h-full transition-all duration-300"
+                    style={{ width: `${modelProgress * 100}%` }}
+                  />
+                </div>
+              )}
+            </div>
+          )}
           {error && <p className="mt-4 text-red-400">{error}</p>}
           {warning && (
             <p className="mt-4 text-yellow-400 text-sm">⚠️ {warning}</p>
           )}
         </div>
 
-        {preview && (
+        {preview && status === "ready" && (
           <article className="bg-[#181818] border border-[#282828] rounded-xl p-6">
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
               <CheckCircle2 size={24} className="text-[#1DB954]" />
               Import Successful!
+              {preview.aiInsights && (
+                <span className="ml-2 px-2 py-0.5 bg-[#1DB954]/20 text-[#1DB954] text-xs rounded-full flex items-center gap-1">
+                  <Sparkles size={12} />
+                  AI Enhanced
+                </span>
+              )}
             </h2>
             {range && (
               <div className="flex gap-4 flex-wrap items-end mb-6">
